@@ -3,7 +3,7 @@
     "username": "swd",
     "password": "Hch1234!",
     "database": "swd_database",
-    "host": "3.0.97.134",
+    "host": "ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com",
     "dialect": "mysql",
     "logging":true,
     "query": {
