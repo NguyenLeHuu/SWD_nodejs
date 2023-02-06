@@ -2,7 +2,7 @@
   "development": {
     "username": "swd",
     "password": "Hch1234!",
-    "database": "SWD",
+    "database": "swd_database",
     "host": "3.0.97.134",
     "dialect": "mysql",
     "logging":true,
