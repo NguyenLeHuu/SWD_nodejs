@@ -26,7 +26,7 @@ const swaggerOptions = {
             contact: {
                 name: "Amz"
             },
-            server: ["http://localhost:8000"]
+            server: ["http://3.0.97.134:8080"]
         }
     },
     apis: ["./route/route.js"]
@@ -39,5 +39,5 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 let port = process.env.PORT || 8080; // use process.env to get value from .env
 
 app.listen(port,()=>{
-    console.log(`Server start port http://localhost:${port}`)
+    console.log(`Server start port http://3.0.97.134:${port}`)
 })
