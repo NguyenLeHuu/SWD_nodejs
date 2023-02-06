@@ -3,8 +3,8 @@ const bodyParser = require ("body-parser");
 const route = require ("./route/Route");
 const cors = require('cors');
 
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+const swaggerUI = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
 
 require('dotenv').config(); // get value from .env
 
@@ -18,23 +18,27 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.use('/api',route);
 
-const swaggerOptions = {
-    swaggerDefinition:{
-        info:{
-            title: 'Customer API',
-            description: "Customer API Informations",
-            contact: {
-                name: "Amz"
-            },
-            server: ["http://localhost:8000"]
+
+const options = {
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "Library API",
+        version: "1.0.0",
+        description: "A simple Express Library API"
+      },
+      servers: [
+        {
+          url: "http://localhost:8000"
         }
+      ]
     },
-    apis: ["./route/route.js"]
-};
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-
+    apis: ["src/route/*.js"]
+  };
+  
+  const specs = swaggerJsDoc(options);
+  app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+  
 
 let port = process.env.PORT || 8080; // use process.env to get value from .env
 

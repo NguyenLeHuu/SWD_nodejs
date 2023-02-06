@@ -3,7 +3,7 @@ const db = require ('../models/index');
 let getAll = ()=>{
     return new Promise( async(resolve,reject)=>{
         try {
-            let data = await db.Agency.findAll();;
+            let data = await db.agency.findAll();;
             resolve(data);
             
         }catch (e){
