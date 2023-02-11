@@ -1,0 +1,16 @@
+GET http://localhost:8080/api/agency/test
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxlaHUiLCJpYXQiOjE2NzYwMDAwNzEsImV4cCI6MTY3NjAwMDEwMX0.BH6JjEnJn9qXYD66YtAtxJnTFa_cx-AKpZUyJspJXso
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "token": "lehu"
+}
+###
+POST http://localhost:8080/refreshToken
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxlaHUiLCJpYXQiOjE2NzU5MzYzMTV9.WK-NZBfsnbm9l1JrsfrTuonwkNLw-MWFxRrM4uZMumw"
+}

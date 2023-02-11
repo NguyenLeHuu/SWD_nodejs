@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "swd",
-    "password": "password",
+    "username": "root",
+    "password": "070900",
     "database": "swd_database",
-    "host": "ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com",
+    "host": "localhost",
     "dialect": "mysql",
     "logging":true,
     "query": {

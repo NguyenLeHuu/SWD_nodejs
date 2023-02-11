@@ -4,11 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node  src/swagger.js"
+    "start": "nodemon --exec babel-node  src/swagger.js src/authServer.js"
   },
   "nodemonConfig": {
-    "ignore": ["src/swagger_output.json"]
+    "ignore": [
+      "src/swagger_output.json"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^3.1.0",
     "sequelize": "^6.28.0",
     "swagger-autogen": "^2.23.0",

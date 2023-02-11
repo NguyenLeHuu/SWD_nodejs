@@ -35,7 +35,7 @@ route.get("/test", AgencyController.index);
 
  /**
  * @swagger
- * /agency:
+ * /api/agency/test:
  *   get:
  *     summary: Returns the list of all the agency
  *     tags: [agency]
