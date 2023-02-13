@@ -19,7 +19,7 @@ const doc = {
       title: 'SWD',        // by default: 'REST API'
       description: 'SWD_BE',  // by default: ''
     },
-    basePath: '/api',  // by default: '/'
+    basePath: '/',  // by default: '/'
     servers: [
         {
           url: `http://localhost:${port}/api`,
