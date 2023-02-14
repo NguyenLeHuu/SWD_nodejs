@@ -10,7 +10,7 @@ const options = {
 const swaggerAutogen = require('swagger-autogen')(options)
 
 const outputFile = './swagger_output.json'
-const endpointsFiles = ['./route/Route.js']
+const endpointsFiles = ['src/route/*.js']
 let port = process.env.PORT || 8080; // use process.env to get value from .env
 
 const doc = {
@@ -22,11 +22,11 @@ const doc = {
     basePath: '/',  // by default: '/'
     servers: [
         {
-          url: `http://localhost:${port}/api`,
+          url: `http://localhost:${port}`,
           description: "local server"
         },
         {
-          url: `http://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:${port}/api`,
+          url: `http://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:${port}`,
           description: "Server in AWS"
         }
       ],

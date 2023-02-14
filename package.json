@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --exec babel-node  src/swagger.js src/authServer.js"
+
+    "start": "nodemon --exec babel-node src/server.js",
+    "start-gendoc": "node src/swagger.js"
   },
   "nodemonConfig": {
     "ignore": [

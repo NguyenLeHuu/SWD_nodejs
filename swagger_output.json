@@ -1,0 +1,42 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "SWD",
+    "description": "SWD_BE"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "local server"
+    },
+    {
+      "url": "http://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080",
+      "description": "Server in AWS"
+    }
+  ],
+  "paths": {
+    "/test": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/agency/test": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
