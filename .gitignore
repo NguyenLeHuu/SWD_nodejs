@@ -2,5 +2,5 @@
 /vendor
 /.idea
 .idea/
-.env 
 src/swagger_output.json
+/swagger_output.json

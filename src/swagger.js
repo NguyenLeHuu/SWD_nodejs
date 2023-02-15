@@ -10,7 +10,7 @@ const options = {
 const swaggerAutogen = require('swagger-autogen')(options)
 
 const outputFile = './swagger_output.json'
-const endpointsFiles = ['src/route/*.js']
+const endpointsFiles = ['src/route/Route.js']
 let port = process.env.PORT || 8080; // use process.env to get value from .env
 
 const doc = {
@@ -30,6 +30,23 @@ const doc = {
           description: "Server in AWS"
         }
       ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          in: 'header',
+          name: 'Authorization',
+          description: 'Bearer token to access these api endpoints',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
     // consumes: [],  // by default: ['application/json']
     // produces: [],  // by default: ['application/json']
     // tags: [        // by default: empty Array
