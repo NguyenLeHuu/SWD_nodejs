@@ -6,7 +6,8 @@
   "scripts": {
 
     "start": "nodemon --exec babel-node src/server.js",
-    "start-gendoc": "node src/swagger.js"
+    "start-gendoc": "node src/swagger.js",
+    "send": "node src/fcm.js"
   },
   "nodemonConfig": {
     "ignore": [
@@ -27,7 +28,8 @@
     "sequelize": "^6.28.0",
     "swagger-autogen": "^2.23.0",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.6.0"
+    "swagger-ui-express": "^4.6.0",
+    "fcm-node": "^1.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
