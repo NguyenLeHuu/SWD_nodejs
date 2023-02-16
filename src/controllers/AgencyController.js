@@ -5,12 +5,16 @@ module.exports = {
         #swagger.tags = ['Agency']
          #swagger.description = "Get all agency"
         */
-    let data = await AgencyService.getAll();
-    return res.status(200).json({
-      status: 200,
-      message: "Get agency successful!",
-      data: data,
-    });
+       try {
+        let data = await AgencyService.getAll();
+        return res.status(200).json({
+          status: 200,
+          message: "Get agency successful!",
+          data: data,
+        });
+       } catch (error) {
+        console.log("____Khong lay duoc AgencyList");
+       }
   },
 
   async store(req, res) {
