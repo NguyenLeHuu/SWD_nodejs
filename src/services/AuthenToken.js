@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 module.exports = function authenToken(req, res, next) {
   //#swagger.autoHeaders=false
   const authorizationHeader = req.headers["authorization"];
-  console.log("this is tesst " + authorizationHeader);
+  console.log("____Token lay tu client " + authorizationHeader);
   if (authorizationHeader !== undefined) {
     const token = authorizationHeader.split(" ")[1];
 
