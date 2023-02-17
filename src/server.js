@@ -135,7 +135,7 @@ const useHttps = process.env.HTTPS || false;
 
 let certPath = process.env.CERT_PATH;
 
-if (useHttps) {
+if (useHttps === 'true') {
   https
   .createServer(
 		// Provide the private and public key to the server by reading each
