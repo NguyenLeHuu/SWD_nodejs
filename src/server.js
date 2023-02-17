@@ -14,7 +14,7 @@ const jwt = require("jsonwebtoken");
 
 const swaggerUI = require("swagger-ui-express");
 
-const swaggerFile = require('../swagger_output.json');
+const swaggerFile = require('./swagger_output.json');
 
 require("dotenv").config(); // get value from .env
 
