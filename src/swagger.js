@@ -26,7 +26,7 @@ const doc = {
           description: "local server"
         },
         {
-          url: `http://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:${port}`,
+          url: `https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:${port}`,
           description: "Server in AWS"
         }
       ],
