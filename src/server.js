@@ -125,6 +125,19 @@ app.post("/logout", (req, res) => {
 //   res.redirect("/login");
 // });
 
+const AWS = require('aws-sdk');
+const fileUpload = require('express-fileupload');
+
+AWS.config.update({region: 'us-east-1'});
+app.use(fileUpload({}));
+
+let s3 = new AWS.S3({
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY
+  }
+})
+
 app.use("/", route);
 
 let port = process.env.PORT || 8080; // use process.env to get value from .env
@@ -156,4 +169,19 @@ if (useHttps === 'true') {
   });
 }
 
+app.post('/', async({files}, res) => {
+  const uploadParams = {
+    Bucket: 'swd-upload-images',
+    Key: files.file.name,
+    Body: Buffer.from(files.file.name),
+    ContentType: files.file.mimetype,
+    ACL: 'public-read',
+  }
 
+  s3.upload(uploadParams, function (err, data) {
+    err && console.log("Error", err)
+    data && console.log("Upload successful", data.Location)
+  })
+
+  res.send("OK")
+});
