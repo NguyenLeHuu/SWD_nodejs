@@ -1,3 +1,7 @@
+const https = require('https');
+
+const fs = require('fs');
+
 const express = require("express");
 
 const bodyParser = require("body-parser");
@@ -10,7 +14,7 @@ const jwt = require("jsonwebtoken");
 
 const swaggerUI = require("swagger-ui-express");
 
-const swaggerFile = require('../swagger_output.json');
+const swaggerFile = require('./swagger_output.json');
 
 require("dotenv").config(); // get value from .env
 
@@ -127,7 +131,37 @@ let port = process.env.PORT || 8080; // use process.env to get value from .env
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
-app.listen(port, () => {
-  // console.log(`Server start port http://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:${port}`)
-  console.log(`Server start port http://localhost:${port}`);
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send({
+    statusCode: 500,
+    message: err.message,
+  })
 });
+
+const useHttps = process.env.HTTPS || false; 
+
+let certPath = process.env.CERT_PATH;
+
+if (useHttps === 'true') {
+  https
+  .createServer(
+		// Provide the private and public key to the server by reading each
+		// file's content with the readFileSync() method.
+    {
+      key: fs.readFileSync(`${certPath}/private.key`),
+      cert: fs.readFileSync(`${certPath}/certificate.crt`),
+      ca: fs.readFileSync(`${certPath}/ca_bundle.crt`),
+    },
+    app
+  )
+  .listen(port, () => {
+    console.log(`Server start port https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:${port}`)
+  });
+} else {
+  app.listen(port, () => {
+    console.log(`Server start port http://localhost:${port}`);
+  });
+}
+
+

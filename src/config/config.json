@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "070900",
+    "username": "swd",
+    "password": "password",
     "database": "swd_database",
-    "host": "localhost",
+    "host": "3.0.97.134",
     "dialect": "mysql",
     "logging":true,
     "query": {
