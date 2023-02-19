@@ -173,7 +173,7 @@ app.post('/', async({files}, res) => {
   const uploadParams = {
     Bucket: 'swd-upload-images',
     Key: files.file.name,
-    Body: Buffer.from(files.file.name),
+    Body: Buffer.from(files.file.data),
     ContentType: files.file.mimetype,
     ACL: 'public-read',
   }
