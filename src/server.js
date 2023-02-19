@@ -131,6 +131,14 @@ let port = process.env.PORT || 8080; // use process.env to get value from .env
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send({
+    statusCode: 500,
+    message: err.message,
+  })
+});
+
 const useHttps = process.env.HTTPS || false; 
 
 let certPath = process.env.CERT_PATH;

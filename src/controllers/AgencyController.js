@@ -14,6 +14,7 @@ module.exports = {
         });
        } catch (error) {
         console.log("____Khong lay duoc AgencyList");
+        throw error;
        }
   },
 
