@@ -12,7 +12,7 @@ module.exports = {
     //--> sai thì gửi lỗi
 
     // Authentication
-    const idToken = req.body.idToken;
+    const idToken = req.body.idToken.toString();
     let checkRevoked = true;
     admin
       .auth()
