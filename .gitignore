@@ -3,4 +3,5 @@
 /.idea
 .idea/
 src/swagger_output.json
-/swagger_output.json
+swagger_output.json
+.gitignore

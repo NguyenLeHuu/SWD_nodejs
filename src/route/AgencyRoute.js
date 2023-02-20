@@ -1,8 +1,8 @@
-const express = require('express');
+const promiseRouter = require("express-promise-router");
 const AgencyController = require('../controllers/AgencyController')
 const authenToken = require('../services/AuthenToken')
 
-let route =  express.Router();
+let route =  promiseRouter();
 
 route.get("/test",authenToken,AgencyController.index);
 

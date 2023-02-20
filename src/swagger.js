@@ -8,9 +8,11 @@ const options = {
 }
 
 const swaggerAutogen = require('swagger-autogen')(options)
+const path = require('path');
 
-const outputFile = './swagger_output.json'
-const endpointsFiles = ['src/route/Route.js']
+const outputFile = `${__dirname}/swagger_output.json`
+const endpointsFiles = [`${__dirname}/route/Route.js`]
+
 let port = process.env.PORT || 8080; // use process.env to get value from .env
 
 const doc = {
