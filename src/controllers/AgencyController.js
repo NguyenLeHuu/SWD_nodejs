@@ -1,4 +1,5 @@
 const AgencyService = require("../services/AgencyService");
+const fcm = require("../services/fcm");
 module.exports = {
   async index(req, res) {
     /* 
@@ -7,6 +8,9 @@ module.exports = {
         */
        try {
         let data = await AgencyService.getAll();
+        console.log("________tesst noti trước khi gửi");
+        fcm.sendNoti;
+        console.log("sau khi gui noti");
         return res.status(200).json({
           status: 200,
           message: "Get agency successful!",
