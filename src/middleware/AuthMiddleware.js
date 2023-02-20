@@ -15,6 +15,7 @@ const isAuthenticated = (req, res, next) => {
     if(error instanceof jwt.TokenExpiredError){
       return res.status(401).send("Token Expired")
     }
+    console.log("____authentication not valid");
     return res.status(401).send("Authentication not valid")
   }
 };
