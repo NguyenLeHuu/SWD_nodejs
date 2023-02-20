@@ -125,19 +125,6 @@ app.post("/logout", (req, res) => {
 //   res.redirect("/login");
 // });
 
-const AWS = require('aws-sdk');
-const fileUpload = require('express-fileupload');
-
-AWS.config.update({region: 'us-east-1'});
-app.use(fileUpload({}));
-
-let s3 = new AWS.S3({
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_KEY
-  }
-})
-
 app.use("/", route);
 
 let port = process.env.PORT || 8080; // use process.env to get value from .env
@@ -145,51 +132,36 @@ let port = process.env.PORT || 8080; // use process.env to get value from .env
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 app.use((err, req, res, next) => {
-  console.error(err.stack)
+  console.error(err.stack);
   res.status(500).send({
     statusCode: 500,
     message: err.message,
-  })
+  });
 });
 
-const useHttps = process.env.HTTPS || false; 
+const useHttps = process.env.HTTPS || false;
 
 let certPath = process.env.CERT_PATH;
 
-if (useHttps === 'true') {
+if (useHttps === "true") {
   https
-  .createServer(
-		// Provide the private and public key to the server by reading each
-		// file's content with the readFileSync() method.
-    {
-      key: fs.readFileSync(`${certPath}/private.key`),
-      cert: fs.readFileSync(`${certPath}/certificate.crt`),
-      ca: fs.readFileSync(`${certPath}/ca_bundle.crt`),
-    },
-    app
-  )
-  .listen(port, () => {
-    console.log(`Server start port https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:${port}`)
-  });
+    .createServer(
+      // Provide the private and public key to the server by reading each
+      // file's content with the readFileSync() method.
+      {
+        key: fs.readFileSync(`${certPath}/private.key`),
+        cert: fs.readFileSync(`${certPath}/certificate.crt`),
+        ca: fs.readFileSync(`${certPath}/ca_bundle.crt`),
+      },
+      app
+    )
+    .listen(port, () => {
+      console.log(
+        `Server start port https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:${port}`
+      );
+    });
 } else {
   app.listen(port, () => {
     console.log(`Server start port http://localhost:${port}`);
   });
 }
-
-app.post('/', async({files}, res) => {
-  const uploadParams = {
-    Bucket: 'swd-upload-images',
-    Key: files.file.name,
-    Body: Buffer.from(files.file.data),
-    ContentType: files.file.mimetype,
-    ACL: 'public-read',
-  }
-
-  s3.upload(uploadParams, function (err, data) {
-    err && console.log("Error", err)
-    data && console.log("Upload successful", data.Location)
-  })
-
-  res.send("OK")
-});

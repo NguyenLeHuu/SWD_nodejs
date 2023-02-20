@@ -11,6 +11,20 @@ let getAll = (id)=>{
     })
 }
 
+let createImage = (imageAddress)=>{
+    return new Promise( async(resolve,reject)=>{
+        try {
+           let data = await db.Image.create({
+                urlImage : imageAddress,
+           });
+            resolve(data);
+        }catch (e){
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getAll: getAll,
+    createImage: createImage,
 }

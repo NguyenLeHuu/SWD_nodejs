@@ -5,9 +5,11 @@ let router = express();
 
 const agencyRoute = require('./AgencyRoute');
 const loginRoute = require('./LoginRoute');
+const imageRoute = require('./ImageRoute');
 
 router.use('/agency',agencyRoute);
 router.use('/login',loginRoute);
+router.use('/image',imageRoute);
 
 // function authenToken(req, res, next) {
 //     const authorizationHeader = req.headers['authorization'];
