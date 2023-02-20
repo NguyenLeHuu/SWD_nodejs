@@ -36,7 +36,7 @@ module.exports = {
               { uid: data.uid },
               process.env.ACCESS_TOKEN_SECRET,
               {
-                expiresIn: "300s",
+                expiresIn: "3600s",
               }
             );
             const refreshToken = jwt.sign(
@@ -68,24 +68,28 @@ module.exports = {
   },
 
   async refreshToken(req, res) {
-    const refreshToken = req.body.token;
-    if (!refreshToken) res.sendStatus(401);
-    if (!refreshTokens.includes(refreshToken)) res.sendStatus(403);
-
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
-      console.log(err, data);
-      console.log(refreshTokens);
-      if (err) res.sendStatus(403);
-      const accessToken = jwt.sign(
-        //   { username: data.username },
-        { username: data.name },
-        process.env.ACCESS_TOKEN_SECRET,
-        {
-          expiresIn: "30s",
-        }
-      );
-      res.json({ accessToken });
-    });
+    try {
+      const refreshToken = req.body.token;
+      if (!refreshToken) res.sendStatus(401);
+      if (!refreshTokens.includes(refreshToken)) res.sendStatus(403);
+  
+      jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
+        console.log(err, data);
+        console.log(refreshTokens);
+        if (err) res.sendStatus(403);
+        const accessToken = jwt.sign(
+          //   { username: data.username },
+          { uid: data.uid },
+          process.env.ACCESS_TOKEN_SECRET,
+          {
+            expiresIn: "3600s",
+          }
+        );
+        res.json({ accessToken });
+      });    
+    } catch (error) {
+      console.log("_______(refreshTokenErr)");
+    }
   },
 };
 async function checkUserInDB(uid) {
