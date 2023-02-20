@@ -12,53 +12,59 @@ module.exports = {
     //--> sai thì gửi lỗi
 
     // Authentication
-    const idToken = req.body.idToken.toString();
-    let checkRevoked = true;
-    admin
-      .auth()
-      .verifyIdToken(idToken, checkRevoked)
-      .then((data) => {
-        console.log(data);
-        //account gmail có tồn tại đc xác thực từ firebase
+    // if (req.hasOwnProperty("_idToken")) {
+      console.log(req.body.idToken);
+      console.log(req.body.idToken.toString());
+      const idToken = req.body.idToken.toString();
+      let checkRevoked = true;
+      admin
+        .auth()
+        .verifyIdToken(idToken, checkRevoked)
+        .then((data) => {
+          console.log(data);
+          //account gmail có tồn tại đc xác thực từ firebase
 
-        //sau đó kiểm tra db
-        const uid = data.uid;
-        // let accountInDB = checkUserInDB(uid);
-        // accountInDB.then((accountInDB) => {
-        //if{accountInDB}{
-        if (true) {
-          //da ton tai trong db
-          //gui ve cho client cac token, role
-          const accessToken = jwt.sign(
-            { username: data.name },
-            process.env.ACCESS_TOKEN_SECRET,
-            {
-              expiresIn: "300s",
-            }
-          );
-          const refreshToken = jwt.sign(
-            { username: data.name },
-            process.env.REFRESH_TOKEN_SECRET
-          );
-          refreshTokens.push(refreshToken);
-          res.json({ accessToken, refreshToken });
-        } else {
-          //chua co trong db, gui response client bat chon role
-          res.status(200).json({
-            status: 200,
-            message: "chua co tai khoan, chon role dang ky di",
-          });
-        }
-        //  });
-      })
-      .catch((e) =>
-        res.status(400).json({
-          //token bi loi
-          status: 400,
-          message: e.message,
-          error: e,
+          //sau đó kiểm tra db
+          const uid = data.uid;
+          // let accountInDB = checkUserInDB(uid);
+          // accountInDB.then((accountInDB) => {
+          //if{accountInDB}{
+          if (true) {
+            //da ton tai trong db
+            //gui ve cho client cac token, role
+            const accessToken = jwt.sign(
+              { uid: data.uid },
+              process.env.ACCESS_TOKEN_SECRET,
+              {
+                expiresIn: "300s",
+              }
+            );
+            const refreshToken = jwt.sign(
+              { uid: data.uid },
+              process.env.REFRESH_TOKEN_SECRET
+            );
+            refreshTokens.push(refreshToken);
+            res.json({ accessToken, refreshToken });
+          } else {
+            //chua co trong db, gui response client bat chon role
+            res.status(200).json({
+              status: 200,
+              message: "chua co tai khoan, chon role dang ky di",
+            });
+          }
+          //  });
         })
-      );
+        .catch((e) =>
+          res.status(400).json({
+            //token bi loi
+            status: 400,
+            message: e.message,
+            error: e,
+          })
+        );
+    // }else{
+    //   console.log("_____khong lay dc IDToken");
+    // }
   },
 
   async refreshToken(req, res) {
