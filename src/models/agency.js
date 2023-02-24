@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     }, 
     name: DataTypes.STRING,
+    email: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Agency',

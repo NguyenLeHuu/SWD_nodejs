@@ -10,4 +10,16 @@ route.get(
   AgencyController.index
 );
 
+route.get(
+  "/name",
+  // AuthMiddleware.isAuthenticated,
+  // AuthMiddleware.isAdmin,
+  AgencyController.searchByName
+);
+
+route.post(
+  "/create",
+  AgencyController.store
+);
+
 module.exports = route;
