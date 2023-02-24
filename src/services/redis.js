@@ -12,18 +12,14 @@ client.connect()
 // client.get = util.promisify(client.get);
 
 const clientSet = (key, value) => {
-    client.set(key, value).then(()=>{
-      console.log("____(redis) set done");
-    }); 
+    client.set(key, value)
 };
 
 const clientGet = async(key) => {
-  console.log("____chay zo get redis");
-  await client.get(key).then((value)=>{
-    console.log("_______"+value);
+  const value = await client.get(key)
     return value
-  })
 };
+
 
 module.exports = {
   clientSet,

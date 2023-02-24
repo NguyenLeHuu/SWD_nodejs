@@ -4,7 +4,7 @@ const AuthMiddleware = require("../middleware/AuthMiddleware");
 
 let route =  promiseRouter();
 route.get(
-  "/test",
+  "/",
   AuthMiddleware.isAuthenticated,
   AuthMiddleware.isAdmin,
   AgencyController.index

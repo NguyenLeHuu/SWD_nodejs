@@ -13,8 +13,9 @@ module.exports = {
       const tokenDevice =
         "eowymDzjzrDw-YfpzdJgJs:APA91bFpIgAosp6Z3SgHZr59sr2Juo9uJanEE7WtSw7Chp-bgNFcGyefVETfYJ1fuKhTDcmDmdtYd8TuyeALS_MkfIIyC-FU4q5gRfZCF6YHWkdfASqiE1Oul1NsS5GSFh8-hu0n545G";
       // console.log(req.headers["tokenNotification"]);
-      fcm.setMsg(tokenDevice, "Bảo mật tài khoản cảu bạn khỏi các quảng cáo");
-      fcm.sendNoti();
+      // fcm.setMsg(tokenDevice, "Bảo mật tài khoản cảu bạn khỏi các quảng cáo");
+      // fcm.sendNoti();
+      // fcm.sendNotiToToPic();
 
       return res.status(200).json({
         status: 200,
@@ -34,20 +35,21 @@ module.exports = {
         */
     try {
       const name = req.body.name;
-      console.log(name);
+      // console.log(name);
       
 
-      const value = redis.clientGet("name")
+      const value =await redis.clientGet("name")
       if(value){
-        console.log("____co trong redis" + value);
+        console.log("____________co trong redis" + value);
         return res.status(200).json({value: value});
       }else{
-        console.log("____khong co trong redis");
+        console.log("____________khong co trong redis");
         let data = await AgencyService.searchByName(name);
         if(data){
           return res.status(203).json(data);
         }else{
           console.log("_____khong tim thay trong db");
+          return res.status(400).json("______can not found");
         }
       }
     } catch (error) {
