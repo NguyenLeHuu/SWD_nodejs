@@ -47,7 +47,6 @@ module.exports = {
         ImageService.createImage(imageAddress);
       }
     });
-
     
     res.send("OK");
   },
