@@ -5,6 +5,10 @@ const redis = require("../services/redis");
 
 module.exports = {
   async index(req, res) {
+    /* 
+        #swagger.tags = ['Category']
+         #swagger.description = "Get all categories"
+        */
     try {
       let data = await CategoryService.getAll();
 
@@ -20,6 +24,10 @@ module.exports = {
   },
 
   async store(req, res) {
+    /* 
+        #swagger.tags = ['Category']
+         #swagger.description = "Create new category"
+        */
     try {
       const name = req.body.name;
       const idagency = req.body.idagency;
@@ -43,8 +51,12 @@ module.exports = {
   },
 
   async delete(req, res) {
+    /* 
+        #swagger.tags = ['Category']
+         #swagger.description = "Delete category"
+        */
     try {
-      const id = req.params['id'];
+      const id = req.params["id"];
 
       let data = await CategoryService.deleteCategory(id);
       console.log("____Delete Category Successful");
@@ -64,8 +76,12 @@ module.exports = {
   },
 
   async update(req, res) {
+    /* 
+        #swagger.tags = ['Category']
+         #swagger.description = "Update a category"
+        */
     try {
-      const id = req.params['id'];
+      const id = req.params["id"];
       const name = req.body.name;
       const idagency = req.body.idagency;
 

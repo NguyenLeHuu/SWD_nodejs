@@ -8,10 +8,10 @@ const imageRoute = require('./ImageRoute');
 const productRoute = require('./ProductRoute');
 const categoryRoute = require('./CategoryRoute');
 
-router.use('/agency',agencyRoute);
 router.use('/login',loginRoute);
-router.use('/image',imageRoute);
-router.use('/product',productRoute);
+router.use('/agency',agencyRoute);
 router.use('/category',categoryRoute);
+router.use('/product',productRoute);
+router.use('/image',imageRoute);
 
 module.exports=router

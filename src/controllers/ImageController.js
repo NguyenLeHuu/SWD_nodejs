@@ -22,6 +22,10 @@ exports.getFileStream = getFileStream;
 
 module.exports = {
   async index(req, res) {
+    /* 
+        #swagger.tags = ['Image]
+         #swagger.description = "Index image"
+        */
     return res.status(200).json({
       status: 200,
       message: "Message",
@@ -29,6 +33,10 @@ module.exports = {
     });
   },
   async create({ files }, res) {
+    /* 
+        #swagger.tags = ['Image']
+         #swagger.description = "Upload new image"
+        */
     let imageAddress = "";
     const uploadParams = {
       Bucket: "swd-upload-images",

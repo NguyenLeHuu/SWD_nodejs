@@ -2,6 +2,10 @@ const ProductService = require("../services/ProductService");
 
 module.exports = {
   async index(req, res) {
+    /* 
+        #swagger.tags = ['Product']
+         #swagger.description = "Get all products"
+        */
     try {
       let data = await ProductService.getAll();
 
@@ -17,6 +21,10 @@ module.exports = {
   },
 
   async store(req, res) {
+    /* 
+        #swagger.tags = ['Product']
+         #swagger.description = "Create new product"
+        */
     try {
       return res.status(200).json({
         status: 200,

@@ -5,7 +5,10 @@ const db = require("../models/index");
 var refreshTokens = [];
 module.exports = {
   async checkUserAccount(req, res) {
-
+    /* 
+        #swagger.tags = ['Login']
+         #swagger.description = "Check User Account"
+        */
     // Authentication
     console.log(req.body.idToken);
     console.log(req.body.idToken.toString());
@@ -57,6 +60,10 @@ module.exports = {
   },
 
   async refreshToken(req, res) {
+    /* 
+        #swagger.tags = ['Login']
+         #swagger.description = "Refresh Token"
+        */
     try {
       const refreshToken = req.body.token;
       if (!refreshToken) res.sendStatus(401);
