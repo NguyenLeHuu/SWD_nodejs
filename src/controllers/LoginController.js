@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const admin = require("firebase-admin");
-const LoginService = require("../services/LoginService");
 const db = require("../models/index");
 var refreshTokens = [];
 module.exports = {
