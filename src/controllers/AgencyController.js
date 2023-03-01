@@ -30,8 +30,8 @@ module.exports = {
 
   async searchByName(req, res) {//hàm test redis,thầy đừng bắt bẻ nha thầy :((
     /* 
-        #swagger.tags = ['Agency']
-         #swagger.description = "Get agency by name"
+        #swagger.tags = ['TEST']
+         #swagger.description = "test redis"
         */
     try {
       const name = req.body.name;
@@ -60,8 +60,8 @@ module.exports = {
 
   async store(req, res) {
     /* 
-        #swagger.tags = ['Agency']
-         #swagger.description = "Create new Agency"
+        #swagger.tags = ['TEST']
+         #swagger.description = "test redis"
         */
     try {
       const name = req.body.name;
