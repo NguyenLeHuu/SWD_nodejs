@@ -10,13 +10,15 @@ module.exports = {
         */
     try {
       const role = req.body.role;
-      const uid = req.body.uid;
-      const email = req.body.email;
-      // const picture = req.body.picture;
-      const name = req.body.name || null;
-      const phone = req.body.phone || null;
       const idagency = req.body.idagency || 1;
       const address = req.body.address || null;
+      const data = req.body.data;
+
+      const uid = data.uid;
+      const email = data.email;
+      // const picture = req.body.picture;
+      const name = data.name || null;
+      const phone = data.phone || null;
 
       //tao account
       switch(role) {
