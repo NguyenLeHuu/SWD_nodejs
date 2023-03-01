@@ -3,7 +3,7 @@ const db = require("../models/index");
 let getAll = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Agency.findAll();
+      let data = await db.Creator.findAll();
       resolve(data);
     } catch (e) {
       reject(e);
@@ -14,10 +14,10 @@ let getAll = () => {
 let searchByName = (name) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Agency.findOne({ where: { name: name } });
+      let data = await db.Creator.findOne({ where: { name: name } });
       resolve(data);
       if(data=== null){
-        console.log('________(searchAgency)Not found!');
+        console.log('________(searchCreator)Not found!');
       }
     } catch (e) {
       reject(e);
@@ -25,13 +25,14 @@ let searchByName = (name) => {
   });
 };
 
-let createAgency = (uid,name, email) => {
+let createCreator = (uid,name, email,idagency) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Agency.create({
-        idagency:uid,
+      let data = await db.Creator.create({
+        idcreator: uid,
         name: name,
         email: email,
+        idagency: idagency,
       });
       resolve(data);
     } catch (e) {
@@ -42,6 +43,6 @@ let createAgency = (uid,name, email) => {
 
 module.exports = {
   getAll: getAll,
-  createAgency: createAgency,
+  createCreator: createCreator,
   searchByName: searchByName,
 };
