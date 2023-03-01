@@ -12,8 +12,8 @@ const signupRoute = require('./SignUpRoute');
 router.use('/signup',signupRoute);
 router.use('/login',loginRoute);
 router.use('/agency',agencyRoute);
-router.use('/category',categoryRoute);
-router.use('/product',productRoute);
+// router.use('/category',categoryRoute);
+// router.use('/product',productRoute);
 router.use('/image',imageRoute);
 
 module.exports=router
