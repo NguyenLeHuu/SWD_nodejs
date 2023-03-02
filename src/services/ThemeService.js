@@ -1,0 +1,68 @@
+const db = require("../models/index");
+
+let getAll = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.Theme.findAll();
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let createTheme = (name, idcreator) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.Theme.create({
+        name: name,
+        idcreator: idcreator,
+      });
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let updateTheme = (id, name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.Theme.update(
+        {
+          name: name,
+        },
+        {
+          where: {
+            idtheme: id,
+          },
+        }
+      );
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let deleteTheme = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.Theme.destroy({
+        where: {
+          idtheme: id,
+        },
+      });
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+module.exports = {
+  getAll: getAll,
+  createTheme: createTheme,
+  updateTheme: updateTheme,
+  deleteTheme: deleteTheme,
+};

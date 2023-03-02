@@ -8,10 +8,12 @@ const imageRoute = require('./ImageRoute');
 const productRoute = require('./ProductRoute');
 const categoryRoute = require('./CategoryRoute');
 const signupRoute = require('./SignUpRoute');
+const themeRoute = require('./ThemeRoute');
 
 router.use('/signup',signupRoute);
 router.use('/login',loginRoute);
 router.use('/agency',agencyRoute);
+router.use('/theme',themeRoute);
 router.use('/category',categoryRoute);
 router.use('/product',productRoute);
 router.use('/image',imageRoute);
