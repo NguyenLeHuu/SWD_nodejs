@@ -8,6 +8,11 @@ route.get(
   ThemeController.index
 );
 
+route.get(
+  "/:id",
+  ThemeController.getOne
+);
+
 route.post(
   "/create",
   ThemeController.store

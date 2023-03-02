@@ -11,6 +11,17 @@ let getAll = (id) => {
   });
 };
 
+let getOne = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.Theme.findByPk(id);
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 let createTheme = (name, idcreator) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -62,6 +73,7 @@ let deleteTheme = (id) => {
 
 module.exports = {
   getAll: getAll,
+  getOne: getOne,
   createTheme: createTheme,
   updateTheme: updateTheme,
   deleteTheme: deleteTheme,

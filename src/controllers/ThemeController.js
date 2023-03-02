@@ -22,6 +22,35 @@ module.exports = {
     }
   },
 
+  async getOne(req, res) {
+    /* 
+        #swagger.tags = ['Theme']
+         #swagger.description = "Get all themes"
+        */
+    try {
+      const id = req.params.id;
+      let data = await ThemeService.getOne(id);
+
+      if(data != null) {
+        return res.status(200).json({
+          status: 200,
+          message: "Get theme successful!",
+          data: data,
+        });
+      }else{
+        return res.status(400).json({
+          status: 400,
+          message: "Theme not exist!",
+          data: data,
+        });
+      }
+      
+    } catch (error) {
+      console.log("____Cannot get theme");
+      throw error;
+    }
+  },
+
   async store(req, res) {
     /* 
         #swagger.tags = ['Theme']
