@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Theme.init({
     idtheme: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       primaryKey: true
     },
     name: DataTypes.STRING,

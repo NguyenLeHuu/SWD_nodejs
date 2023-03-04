@@ -49,7 +49,7 @@ let updateCollection = (id, name, idtheme) => {
         },
         {
           where: {
-            idtheme: id,
+            idcollection: id,
           },
         }
       );

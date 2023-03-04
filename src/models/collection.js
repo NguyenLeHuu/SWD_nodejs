@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Collection.init({
     idcollection: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       primaryKey: true
     },
     name: DataTypes.STRING,
-    idtheme: DataTypes.INTEGER,
+    idtheme: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Collection',
