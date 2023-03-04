@@ -1,4 +1,5 @@
 const db = require("../models/index");
+const crypto = require('crypto');
 
 let getAll = (id) => {
   return new Promise(async (resolve, reject) => {
@@ -25,7 +26,9 @@ let getOne = (id) => {
 let createTheme = (name, idcreator) => {
   return new Promise(async (resolve, reject) => {
     try {
+      let id = crypto.randomBytes(15).toString('hex');
       let data = await db.Theme.create({
+        idtheme:id,
         name: name,
         idcreator: idcreator,
       });
