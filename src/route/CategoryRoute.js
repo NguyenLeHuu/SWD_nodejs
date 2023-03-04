@@ -19,7 +19,7 @@ route.put(
 )
 
 route.delete(
-    "/:id",
+    "/delete/:id",
     CategoryController.delete
 );
 
