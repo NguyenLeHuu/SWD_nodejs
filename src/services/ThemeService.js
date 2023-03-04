@@ -62,7 +62,11 @@ let updateTheme = (id, name) => {
 let deleteTheme = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Theme.destroy({
+      let data = await db.Theme.update(
+        {
+          status: "0",
+        },
+        {
         where: {
           idtheme: id,
         },

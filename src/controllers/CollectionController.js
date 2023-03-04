@@ -61,8 +61,6 @@ module.exports = {
       let data = await CollectionService.createCollection(name, idtheme);
       console.log("____Create Collection Successful");
 
-      await redis.clientSet("name", name);
-
       return res.status(200).json({
         status: 200,
         message: "Create Collection Successful!",

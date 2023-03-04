@@ -34,7 +34,6 @@ module.exports = {
       let data = await CategoryService.createCategory(name, idagency);
       console.log("____Create Category Successful");
 
-      await redis.clientSet("name", name);
 
       return res.status(200).json({
         status: 200,

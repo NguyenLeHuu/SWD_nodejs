@@ -12,21 +12,22 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Product.belongsTo(models.Category,{foreignKey:'idproductcategory'})
+      Product.belongsTo(models.Collection,{foreignKey:'idcollection'})
       // Product.belongsTo(models.Cart,{foreignKey:'idproduct'})
       // Product.hasMany(models.Image,{foreignKey:'productId'});
     }
   }
   Product.init({
     idproduct:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       primaryKey: true
     },
     name: DataTypes.STRING,
     quantity: DataTypes.INTEGER,
     price: DataTypes.DECIMAL,
     status: DataTypes.STRING,
-    idproductcategory: DataTypes.INTEGER,
-    idcollection: DataTypes.INTEGER,
+    idproductcategory: DataTypes.STRING,
+    idcollection: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Product',

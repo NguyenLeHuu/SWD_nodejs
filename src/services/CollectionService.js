@@ -63,7 +63,11 @@ let updateCollection = (id, name, idtheme) => {
 let deleteCollection = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Collection.destroy({
+      let data = await db.Collection.update(
+        {
+          status: "0",
+        },
+        {
         where: {
           idcollection: id,
         },

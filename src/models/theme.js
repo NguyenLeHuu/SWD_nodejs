@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     name: DataTypes.STRING,
+    status:DataTypes.STRING,
     idcreator: DataTypes.STRING,
   }, {
     sequelize,

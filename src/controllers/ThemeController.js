@@ -25,7 +25,7 @@ module.exports = {
   async getOne(req, res) {
     /* 
         #swagger.tags = ['Theme']
-         #swagger.description = "Get all themes"
+         #swagger.description = "Get one theme"
         */
     try {
       const id = req.params.id;
@@ -62,7 +62,6 @@ module.exports = {
       let data = await ThemeService.createTheme(name, idcreator);
       console.log("____Create Theme Successful");
 
-      await redis.clientSet("name", name);
 
       return res.status(200).json({
         status: 200,

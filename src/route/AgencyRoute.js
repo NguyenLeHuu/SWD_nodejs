@@ -5,15 +5,15 @@ const AuthMiddleware = require("../middleware/AuthMiddleware");
 let route =  promiseRouter();
 route.get(
   "/",
-  AuthMiddleware.isAuthenticated,
-  AuthMiddleware.isAdmin,
+  // AuthMiddleware.isAuthenticated,
+  // AuthMiddleware.isAdmin,
   AgencyController.index
 );
 
 route.get(
   "/name",
-  // AuthMiddleware.isAuthenticated,
-  // AuthMiddleware.isAdmin,
+  AuthMiddleware.isAuthenticated,
+  AuthMiddleware.isAdmin,
   AgencyController.searchByName
 );
 
