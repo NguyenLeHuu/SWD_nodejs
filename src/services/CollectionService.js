@@ -1,4 +1,5 @@
 const db = require("../models/index");
+const crypto = require('crypto');
 
 let getAll = () => {
   return new Promise(async (resolve, reject) => {
@@ -25,7 +26,9 @@ let getOne = (id) => {
 let createCollection = (name, idtheme) => {
   return new Promise(async (resolve, reject) => {
     try {
+      let id = crypto.randomBytes(15).toString('hex');
       let data = await db.Collection.create({
+        idcollection: id,
         name: name,
         idtheme: idtheme,
       });
