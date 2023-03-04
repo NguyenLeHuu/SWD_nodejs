@@ -1,4 +1,5 @@
 const db = require("../models/index");
+const crypto = require("crypto");
 
 let getAll = (id) => {
   return new Promise(async (resolve, reject) => {
@@ -14,9 +15,12 @@ let getAll = (id) => {
 let createCategory = (name, idagency) => {
   return new Promise(async (resolve, reject) => {
     try {
+      let id = crypto.randomBytes(15).toString('hex');
       let data = await db.Category.create({
+        idproductcategory: id,
         name: name,
         idagency: idagency,
+        status: true,
       });
       resolve(data);
     } catch (e) {
@@ -46,14 +50,19 @@ let updateCategory = (id, name, idagency) => {
   });
 };
 
-let deleteCategory = (id) => {
+let deleteCategory = (id, status) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Category.destroy({
-        where: {
-          idproductcategory: id,
+      let data = await db.Category.update(
+        {
+          status: status,
         },
-      });
+        {
+          where: {
+            idproductcategory: id,
+          },
+        }
+      );
       resolve(data);
     } catch (e) {
       reject(e);
