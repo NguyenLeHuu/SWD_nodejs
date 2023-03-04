@@ -56,8 +56,9 @@ module.exports = {
         */
     try {
       const id = req.params["id"];
+      const status = req.body.status;
 
-      let data = await CategoryService.deleteCategory(id);
+      let data = await CategoryService.deleteCategory(id, status);
       console.log("____Delete Category Successful");
 
       return res.status(200).json({

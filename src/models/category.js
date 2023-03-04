@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING,
     idagency: DataTypes.INTEGER,
+    status: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Category',
