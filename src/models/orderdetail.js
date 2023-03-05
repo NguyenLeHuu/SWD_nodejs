@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       OrderCartDetail.belongsTo(models.Product,{foreignKey:'idproduct'});
-      // OrderCartDetail.belongsTo(models.OrderCart,{foreignKey:'idorder'});
+      OrderCartDetail.belongsTo(models.OrderCart,{foreignKey:'idorder'});
     }
   }
   OrderCartDetail.init({
