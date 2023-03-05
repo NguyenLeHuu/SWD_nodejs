@@ -1,7 +1,7 @@
 const db = require("../models/index");
 const crypto = require("crypto");
 
-let getAll = (id) => {
+let getAll = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Image.findAll();

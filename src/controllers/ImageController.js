@@ -99,10 +99,7 @@ module.exports = {
       });
     } catch (err) {
       console.log("____Delete Image Failed");
-      return res.status(400).json({
-        status: 400,
-        message: err,
-      });
+      throw err;
     }
   },
 
