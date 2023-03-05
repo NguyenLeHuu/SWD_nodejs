@@ -1,26 +1,26 @@
 const promiseRouter = require("express-promise-router");
-const CategoryController = require("../controllers/CategoryController");
+const OrderDetailController = require("../controllers/OrderDetailController");
 const AuthMiddleware = require("../middleware/AuthMiddleware");
 
 let route =  promiseRouter();
 route.get(
-  "/",
-  CategoryController.index
+  "/:id",
+  OrderDetailController.index
 );
 
 route.post(
-  "/create",
-  CategoryController.store
+  "/add",
+  OrderDetailController.store
 );
 
 route.put(
-    "/update/:id",
-    CategoryController.update
+    "/update/",
+    OrderDetailController.update
 )
 
 route.delete(
     "/delete/:id",
-    CategoryController.delete
+    OrderDetailController.delete
 );
 
 module.exports = route;

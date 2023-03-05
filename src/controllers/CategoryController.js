@@ -14,11 +14,11 @@ module.exports = {
 
       return res.status(200).json({
         status: 200,
-        message: "Get list products successful!",
+        message: "Get list categories successful!",
         data: data,
       });
     } catch (error) {
-      console.log("____Cannot get all products");
+      console.log("____Cannot get all categories");
       throw error;
     }
   },
@@ -56,8 +56,9 @@ module.exports = {
         */
     try {
       const id = req.params["id"];
+      const status = req.body.status;
 
-      let data = await CategoryService.deleteCategory(id);
+      let data = await CategoryService.deleteCategory(id, status);
       console.log("____Delete Category Successful");
 
       return res.status(200).json({

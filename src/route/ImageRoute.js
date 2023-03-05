@@ -9,6 +9,9 @@ let route = promiseRouter();
 route.use(bodyParser.json());
 route.use(fileUpload({}));
 
-route.post("/", ImageController.create);
+route.get("/", ImageController.index);
+route.post("/create", ImageController.create);
+route.put("/update/:id", ImageController.update);
+route.delete("/delete/:id", ImageController.delete);
 
 module.exports = route;

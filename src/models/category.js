@@ -17,11 +17,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Category.init({
     idproductcategory: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       primaryKey: true
     },
     name: DataTypes.STRING,
     idagency: DataTypes.INTEGER,
+    status: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Category',
