@@ -10,6 +10,9 @@ const categoryRoute = require('./CategoryRoute');
 const signupRoute = require('./SignUpRoute');
 const themeRoute = require('./ThemeRoute');
 const collectionRoute = require('./CollectionRoute');
+const createPayRoute = require('./CreatePayRoute');
+const createPaySuccessRoute = require('./PaySuccessRoute');
+const createPayCancelRoute = require('./PayCancelRoute');
 
 router.use('/signup',signupRoute);
 router.use('/login',loginRoute);
@@ -19,5 +22,8 @@ router.use('/collection',collectionRoute);
 router.use('/category',categoryRoute);
 router.use('/product',productRoute);
 router.use('/image',imageRoute);
+router.use('/pay',createPayRoute);
+router.use('/success',createPaySuccessRoute);
+router.use('/cancel',createPayCancelRoute);
 
 module.exports=router

@@ -16,6 +16,8 @@ const swaggerUI = require("swagger-ui-express");
 
 const swaggerFile = require('./swagger_output.json');
 
+const paypal = require('paypal-rest-sdk');
+
 require("dotenv").config(); // get value from .env
 
 let app = express();
@@ -26,7 +28,6 @@ app.use(cors({ origin: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//xử lí login, logout, refreshToken, không chia file, muốn chia file lưu db freshToken
 
 var admin = require("firebase-admin");
 
@@ -36,13 +37,13 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-// let refreshTokens = [];
-
-// app.post("/logout", (req, res) => {
-//   const refreshToken = req.body.token;
-//   refreshTokens = refreshTokens.filter((refToken) => refToken !== refreshToken);
-//   res.sendStatus(200);
-// });
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  // 'client_id': 'AW08gKdTJAStrt0PenCcUa-EPaqphhipPcMNjtWKfIoRSHWBt-YRM5bea51ZAiv16baUZQLO2BNCKETw',
+  // 'client_secret': 'EF-_jU1cTmNx1UQHkyl7nq3puKAd2JSAvFSbHxgfGeoNgiXsaW4eQ-PalxcQ5hZHcGJ5kD3sfB-21w7L'
+  'client_id': 'AYAzJhgEv8eAYdypu-Q_9N06vD2JcR5qeRkz6G32J7nVJ6MCvEF7fCr4KIgAGocKfxzLk5RI33aHarDG',
+  'client_secret': 'EB5yajw5uYXV53u27wrY_wg3DFSSSfAmRj1we1ZElIjZO8z1Dt1jRFpzQq0iFGZA3bquSHKf_QyDwove'
+});
 
 
 app.use("/", route);

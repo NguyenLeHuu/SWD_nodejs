@@ -100,6 +100,12 @@ async function checkUserInDB(uid) {
       console.log(role);
       return role;
     }
+    let AccountRoleAgency = await db.Agency.findByPk(uid);
+    if (AccountRoleAgency) {
+      role = "agency";
+      console.log(role);
+      return role;
+    }
     let AccountRoleCreator = await db.Creator.findByPk(uid);
     if (AccountRoleCreator) {
       role = "creator";

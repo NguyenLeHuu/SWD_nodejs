@@ -16,7 +16,6 @@ module.exports = {
 
       const uid = data.uid;
       const email = data.email;
-      // const picture = req.body.picture;
       const name = data.name || null;
       const phone = data.phone || null;
 
