@@ -39,12 +39,13 @@ let createTheme = (name, idcreator) => {
   });
 };
 
-let updateTheme = (id, name) => {
+let updateTheme = (id, name,status) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Theme.update(
         {
           name: name,
+          status: status,
         },
         {
           where: {
@@ -64,7 +65,7 @@ let deleteTheme = (id) => {
     try {
       let data = await db.Theme.update(
         {
-          status: "0",
+          status: 0,
         },
         {
         where: {

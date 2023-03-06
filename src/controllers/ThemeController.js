@@ -110,8 +110,9 @@ module.exports = {
     try {
       const id = req.params["id"];
       const name = req.body.name;
+      const status = req.body.status;
 
-      let data = await ThemeService.updateTheme(id, name);
+      let data = await ThemeService.updateTheme(id, name,status);
       console.log("____Update Theme Successful");
 
       return res.status(200).json({
