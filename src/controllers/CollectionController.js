@@ -108,10 +108,8 @@ module.exports = {
     try {
       const id = req.params["id"];
       const name = req.body.name;
-      const status = req.body.status;
-      const idtheme = req.body.idtheme;
 
-      let data = await CollectionService.updateCollection(id, name,status, idtheme);
+      let data = await CollectionService.updateCollection(id, name);
       console.log("____Update Collection Successful");
 
       return res.status(200).json({

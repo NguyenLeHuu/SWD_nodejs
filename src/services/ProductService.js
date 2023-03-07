@@ -1,7 +1,7 @@
 const db = require("../models/index");
-const crypto = require('crypto');
+const crypto = require("crypto");
 
-let getAll = (id) => {
+let getAll = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Product.findAll();
@@ -23,12 +23,18 @@ let getOne = (id) => {
   });
 };
 
-let createProduct = (name,quantity, price,idproductcategory,idcollection) => {
+let createProduct = (
+  name,
+  quantity,
+  price,
+  idproductcategory,
+  idcollection
+) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let id = crypto.randomBytes(15).toString('hex');
+      let id = crypto.randomBytes(15).toString("hex");
       let data = await db.Product.create({
-        idproduct:id,
+        idproduct: id,
         name: name,
         quantity: quantity,
         price: price,
@@ -42,17 +48,14 @@ let createProduct = (name,quantity, price,idproductcategory,idcollection) => {
   });
 };
 
-let updateProduct = (id, name,quantity, price,status,idproductcategory,idcollection) => {
+let updateProduct = (id, name, quantity, price) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Product.update(
         {
           name: name,
-        quantity: quantity,
-        price: price,
-        status: status,
-        idproductcategory: idproductcategory,
-        idcollection: idcollection,
+          quantity: quantity,
+          price: price,
         },
         {
           where: {
@@ -72,13 +75,14 @@ let deleteProduct = (id) => {
     try {
       let data = await db.Product.update(
         {
-          status: "not Stocking",
+          status: "Out of Stock",
         },
         {
-        where: {
-          idproduct: id,
-        },
-      });
+          where: {
+            idproduct: id,
+          },
+        }
+      );
       resolve(data);
     } catch (e) {
       reject(e);

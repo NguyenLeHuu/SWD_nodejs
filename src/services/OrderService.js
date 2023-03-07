@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const crypto = require("crypto");
+const Utils = require('./Utils');
 
 let getAll = (id) => {
   return new Promise(async (resolve, reject) => {
@@ -9,6 +10,7 @@ let getAll = (id) => {
           idcustomer : id,
         }
       });
+      Utils.setStatus(data);
       resolve(data);
     } catch (e) {
       reject(e);
