@@ -31,20 +31,19 @@ module.exports = {
       const id = req.params.id;
       let data = await ThemeService.getOne(id);
 
-      if(data != null) {
+      if (data != null) {
         return res.status(200).json({
           status: 200,
           message: "Get theme successful!",
           data: data,
         });
-      }else{
+      } else {
         return res.status(400).json({
           status: 400,
           message: "Theme not exist!",
           data: data,
         });
       }
-      
     } catch (error) {
       console.log("____Cannot get theme");
       throw error;
@@ -61,7 +60,6 @@ module.exports = {
       const idcreator = req.body.idcreator;
       let data = await ThemeService.createTheme(name, idcreator);
       console.log("____Create Theme Successful");
-
 
       return res.status(200).json({
         status: 200,

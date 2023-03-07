@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     name: DataTypes.STRING,
-    status:DataTypes.STRING,
+    status:DataTypes.BOOLEAN,
     idcreator: DataTypes.STRING,
   }, {
     sequelize,
