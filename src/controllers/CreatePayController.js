@@ -1,5 +1,5 @@
 const paypal = require("paypal-rest-sdk");
-// const PayService = require("../services/PayService");
+const PayService = require("../services/PayService");
 
 module.exports = {
   async create_pay(req, res) {
@@ -10,6 +10,9 @@ module.exports = {
     try {
       const items_cart = req.body.items_cart;
       const total = req.body.total;
+      const idorder = req.body.idorder;
+      let idpayment = await PayService.createPayment(idorder,total)
+      
 
       const create_payment_json = {
         intent: "sale",
@@ -17,7 +20,7 @@ module.exports = {
           payment_method: "paypal",
         },
         redirect_urls: {
-          return_url: "http://localhost:8080/success",
+          return_url: `http://localhost:8080/success/?idpayment=${idpayment.idpayment}&idorder=${idorder}`,
           cancel_url: "http://localhost:8080/cancel",
           // return_url: "https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080/success",
           // cancel_url: "https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080/cancel",

@@ -1,5 +1,7 @@
 const paypal = require("paypal-rest-sdk");
 const PayService = require("../services/PayService");
+const OrderService = require("../services/OrderService");
+const OrderDetailService = require("../services/OrderDetailService");
 
 module.exports = {
   async pay(req, res) {
@@ -10,15 +12,17 @@ module.exports = {
     try {
       const payerId = req.query.PayerID;
       const paymentId = req.query.paymentId;
-      console.log("____________________");
-      console.log(req.body);
+      const idpayment = req.query.idpayment;
+      const idorder = req.query.idorder;
+
+      const total = await PayService.getPayment(idpayment)
       const execute_payment_json = {
         payer_id: payerId,
         transactions: [
           {
             amount: {
               currency: "USD",
-              total: "25.00",//cho~ nay ne
+              total: total,
             },
           },
         ],
@@ -26,7 +30,7 @@ module.exports = {
       paypal.payment.execute(
         paymentId,
         execute_payment_json,
-        function (error, payment) {
+        async function (error, payment) {
           if (error) {
             console.log(error.response);
             throw error;
@@ -34,11 +38,17 @@ module.exports = {
             console.log(JSON.stringify(payment));
             //set lai cart
             //chuyen status bang ordercarts
-            //luu db
+
+            await PayService.updatePayment(idpayment)
+            // await OrderService.updateOrderStatus(idorder)
+            // const orderDetail = await OrderDetailService.getOrderCartDetail(idorder)
+            // await OrderDetailService.updateOrderDetail(orderDetail.idorderdetail)
+            
             res.send("Success (Mua hàng thành công)");
           }
         }
       );
+
     } catch (error) {
       console.log("____(pay) err");
     }

@@ -1,11 +1,68 @@
+const { Op } = require('sequelize');
 const db = require("../models/index");
-const crypto = require('crypto');
+const crypto = require("crypto");
 
-let getAll = (id) => {
+let getAll = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Product.findAll();
-      resolve(data);
+      if (!data.name) {
+        data.name = " ";
+      }
+      if (!data.category) {
+        data.category = "%";
+      }
+      if (!data.limit) {
+        data.limit = 10;
+      }
+      if (!data.status) {
+        data.status = "%";
+      }
+      if (!data.min) {
+        data.min = 0;
+      }
+      if (!data.max) {
+        data.max = 10000;//gia cao nhat
+      }
+      
+  
+
+      let products = await db.Product.findAll({
+        // include:[
+        //   {
+        //     model: db.Category, 
+        //     attributes: [], 
+        //   }
+        // ],
+        // raw:true,
+        // nest:true,
+        where: {
+          [Op.and]: [
+            {
+              name: {
+                [Op.like]: `%${data.name.trim()}%`,
+              },
+            },
+            {
+              status: {
+                [Op.like]: `%${data.status.trim()}%`,
+              },
+            },
+            {
+              idproductcategory: {
+                [Op.like]: `${data.category}`,
+              },
+            },
+            {
+              price: {
+                [Op.between]: [`${data.min}`,`${data.max}`],
+              },
+            },
+          ],
+        },
+        offset: (data.page - 1) * data.limit || 0,
+        limit: Number(data.limit),
+      });
+      resolve(products);
     } catch (e) {
       reject(e);
     }
@@ -23,12 +80,18 @@ let getOne = (id) => {
   });
 };
 
-let createProduct = (name,quantity, price,idproductcategory,idcollection) => {
+let createProduct = (
+  name,
+  quantity,
+  price,
+  idproductcategory,
+  idcollection
+) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let id = crypto.randomBytes(15).toString('hex');
+      let id = crypto.randomBytes(15).toString("hex");
       let data = await db.Product.create({
-        idproduct:id,
+        idproduct: id,
         name: name,
         quantity: quantity,
         price: price,
@@ -42,17 +105,25 @@ let createProduct = (name,quantity, price,idproductcategory,idcollection) => {
   });
 };
 
-let updateProduct = (id, name,quantity, price,status,idproductcategory,idcollection) => {
+let updateProduct = (
+  id,
+  name,
+  quantity,
+  price,
+  status,
+  idproductcategory,
+  idcollection
+) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Product.update(
         {
           name: name,
-        quantity: quantity,
-        price: price,
-        status: status,
-        idproductcategory: idproductcategory,
-        idcollection: idcollection,
+          quantity: quantity,
+          price: price,
+          status: status,
+          idproductcategory: idproductcategory,
+          idcollection: idcollection,
         },
         {
           where: {
@@ -75,10 +146,11 @@ let deleteProduct = (id) => {
           status: "not Stocking",
         },
         {
-        where: {
-          idproduct: id,
-        },
-      });
+          where: {
+            idproduct: id,
+          },
+        }
+      );
       resolve(data);
     } catch (e) {
       reject(e);
