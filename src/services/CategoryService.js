@@ -5,9 +5,6 @@ let getAll = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Category.findAll({
-        where : {
-          status: true,
-        }
       });
       resolve(data);
     } catch (e) {
