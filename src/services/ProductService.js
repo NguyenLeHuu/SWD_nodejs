@@ -72,7 +72,7 @@ let deleteProduct = (id) => {
     try {
       let data = await db.Product.update(
         {
-          status: "out of stock",
+          status: "not Stocking",
         },
         {
         where: {

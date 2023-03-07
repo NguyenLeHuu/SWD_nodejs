@@ -39,12 +39,13 @@ let createCollection = (name, idtheme) => {
   });
 };
 
-let updateCollection = (id, name, idtheme) => {
+let updateCollection = (id, name,status, idtheme) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Collection.update(
         {
           name: name,
+          status: status,
           idtheme: idtheme,
         },
         {
@@ -65,7 +66,7 @@ let deleteCollection = (id) => {
     try {
       let data = await db.Collection.update(
         {
-          status: "0",
+          status: 0,
         },
         {
         where: {

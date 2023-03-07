@@ -13,6 +13,22 @@ let getAll = (id) => {
     }
   });
 };
+let getThemeOfCreator = (idcreator) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.Theme.findAll(
+        {
+          where: {
+            idcreator: idcreator
+          }
+        }
+      );
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 
 let getOne = (id) => {
   return new Promise(async (resolve, reject) => {
@@ -41,12 +57,13 @@ let createTheme = (name, idcreator) => {
   });
 };
 
-let updateTheme = (id, name) => {
+let updateTheme = (id, name,status) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Theme.update(
         {
           name: name,
+          status: status,
         },
         {
           where: {
@@ -66,7 +83,7 @@ let deleteTheme = (id) => {
     try {
       let data = await db.Theme.update(
         {
-          status: "0",
+          status: 0,
         },
         {
         where: {
@@ -86,4 +103,5 @@ module.exports = {
   createTheme: createTheme,
   updateTheme: updateTheme,
   deleteTheme: deleteTheme,
+  getThemeOfCreator: getThemeOfCreator,
 };

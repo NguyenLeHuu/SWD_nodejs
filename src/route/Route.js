@@ -12,6 +12,9 @@ const themeRoute = require('./ThemeRoute');
 const collectionRoute = require('./CollectionRoute');
 const orderRoute = require('./OrderRoute');
 const orderDetailRoute = require('./OrderDetailRoute');
+const createPayRoute = require('./CreatePayRoute');
+const createPaySuccessRoute = require('./PaySuccessRoute');
+const createPayCancelRoute = require('./PayCancelRoute');
 
 router.use('/signup',signupRoute);
 router.use('/login',loginRoute);
@@ -23,5 +26,8 @@ router.use('/product',productRoute);
 router.use('/image',imageRoute);
 router.use('/order', orderRoute);
 router.use('/orderdetail',orderDetailRoute);
+router.use('/pay',createPayRoute);
+router.use('/success',createPaySuccessRoute);
+router.use('/cancel',createPayCancelRoute);
 
 module.exports=router
