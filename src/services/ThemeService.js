@@ -11,6 +11,22 @@ let getAll = (id) => {
     }
   });
 };
+let getThemeOfCreator = (idcreator) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.Theme.findAll(
+        {
+          where: {
+            idcreator: idcreator
+          }
+        }
+      );
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 
 let getOne = (id) => {
   return new Promise(async (resolve, reject) => {
@@ -85,4 +101,5 @@ module.exports = {
   createTheme: createTheme,
   updateTheme: updateTheme,
   deleteTheme: deleteTheme,
+  getThemeOfCreator: getThemeOfCreator,
 };
