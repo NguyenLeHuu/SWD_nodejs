@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     paymentmethod: DataTypes.STRING,
     total: DataTypes.DECIMAL,
     idorder: DataTypes.STRING,
+    status: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Payment',

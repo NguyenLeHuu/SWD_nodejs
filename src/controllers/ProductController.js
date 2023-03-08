@@ -9,12 +9,13 @@ module.exports = {
          #swagger.description = "Get all products"
         */
     try {
-      let data = await ProductService.getAll();
+      const {limit,page,name,category,status,min,max} = req.query;
+    let products = await ProductService.getAll(req.query);
 
       return res.status(200).json({
         status: 200,
         message: "Get list products successful!",
-        data: data,
+        data: products,
       });
     } catch (error) {
       console.log("____Cannot get all products");

@@ -110,9 +110,49 @@ let deleteOrderDetail = (id) => {
   });
 };
 
+let getOrderCartDetail = (idorder) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.OrderCartDetail.findOne({
+        where : {
+          idorder : idorder,
+        }
+      });
+      console.log("________");
+      console.log(data);
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let updateOrderDetailStatus = (idorderdetail) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.OrderCartDetail.update(
+        {
+          status: false,
+          datetime: new Date(),
+        },
+        {
+          where: {
+            idorderdetail: idorderdetail,
+          },
+        }
+      );
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   getAll: getAll,
   addOrderDetail: addOrderDetail,
   updateOrderDetail: updateOrderDetail,
   deleteOrderDetail: deleteOrderDetail,
+  getOrderCartDetail,
+  updateOrderDetailStatus,
 };
