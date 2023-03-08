@@ -10,13 +10,25 @@ module.exports = {
          #swagger.description = "Get all categories"
         */
     try {
-      let data = await CategoryService.getAll();
-
-      return res.status(200).json({
-        status: 200,
-        message: "Get list categories successful!",
-        data: data,
-      });
+      const categoriesRedis = await redis.clientGet("categories");
+      if (categoriesRedis) {
+        const categories = JSON.parse(categoriesRedis);
+        // console.log("_______có trong redis nè____");
+        // console.log(categories);
+        return res.status(200).json({
+          status: 200,
+          message: "Get list categories from redis successful!",
+          data: categories,
+        });
+      } else {
+        let data = await CategoryService.getAll();
+        await redis.clientSet("categories",JSON.stringify(data))
+        return res.status(200).json({
+          status: 200,
+          message: "Get list categories successful!",
+          data: data,
+        });
+      }
     } catch (error) {
       console.log("____Cannot get all categories");
       throw error;
@@ -33,6 +45,9 @@ module.exports = {
       const idagency = req.body.idagency;
       let data = await CategoryService.createCategory(name, idagency);
       console.log("____Create Category Successful");
+      
+      let categories = await CategoryService.getAll();
+      await redis.clientSet("categories",JSON.stringify(categories))
 
 
       return res.status(200).json({

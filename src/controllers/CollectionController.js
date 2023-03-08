@@ -10,18 +10,19 @@ module.exports = {
         */
     try {
 
-      const categoriesRedis = await redis.clientGet("categories")
-      if(categoriesRedis){
-        const categories = JSON.parse(categoriesRedis)
+      const collectionRedis = await redis.clientGet("collections")
+      if(collectionRedis){
+        const collections = JSON.parse(collectionRedis)
         console.log("_______có trong redis nè____");
-        console.log(categories);
+        console.log(collections);
         return res.status(200).json({
           status: 200,
           message: "Get list collections successful!",
-          data: categories,
+          data: collections,
         });
       }else{
         let data = await CollectionService.getAll();
+        await redis.clientSet("collections",JSON.stringify(data))
         return res.status(200).json({
           status: 200,
           message: "Get list collections successful!",
@@ -72,6 +73,9 @@ module.exports = {
       const idtheme = req.body.idtheme;
       let data = await CollectionService.createCollection(name, idtheme);
       console.log("____Create Collection Successful");
+
+      let collections = await CategoryService.getAll();
+      await redis.clientSet("collections",JSON.stringify(collections))
 
       return res.status(200).json({
         status: 200,
