@@ -1,10 +1,13 @@
 const db = require("../models/index");
 const crypto = require("crypto");
+const Utils = require('./Utils');
 
 let getAll = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Category.findAll();
+      let data = await db.Category.findAll({
+      });
+      Utils.setStatus(data);
       resolve(data);
     } catch (e) {
       reject(e);
@@ -50,12 +53,12 @@ let updateCategory = (id, name, idagency) => {
   });
 };
 
-let deleteCategory = (id, status) => {
+let deleteCategory = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Category.update(
         {
-          status: status,
+          status: false,
         },
         {
           where: {

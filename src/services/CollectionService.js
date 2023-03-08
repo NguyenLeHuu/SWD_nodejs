@@ -1,10 +1,12 @@
 const db = require("../models/index");
 const crypto = require('crypto');
+const Utils = require('./Utils');
 
 let getAll = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Collection.findAll();
+      Utils.setStatus(data);
       resolve(data);
     } catch (e) {
       reject(e);
@@ -16,6 +18,7 @@ let getOne = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Collection.findByPk(id);
+      data.status = data.status.readInt8();
       resolve(data);
     } catch (e) {
       reject(e);
@@ -39,14 +42,12 @@ let createCollection = (name, idtheme) => {
   });
 };
 
-let updateCollection = (id, name,status, idtheme) => {
+let updateCollection = (id, name) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Collection.update(
         {
           name: name,
-          status: status,
-          idtheme: idtheme,
         },
         {
           where: {

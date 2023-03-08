@@ -105,15 +105,7 @@ let createProduct = (
   });
 };
 
-let updateProduct = (
-  id,
-  name,
-  quantity,
-  price,
-  status,
-  idproductcategory,
-  idcollection
-) => {
+let updateProduct = (id, name, quantity, price) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Product.update(
@@ -121,9 +113,6 @@ let updateProduct = (
           name: name,
           quantity: quantity,
           price: price,
-          status: status,
-          idproductcategory: idproductcategory,
-          idcollection: idcollection,
         },
         {
           where: {
@@ -143,7 +132,7 @@ let deleteProduct = (id) => {
     try {
       let data = await db.Product.update(
         {
-          status: "not Stocking",
+          status: "Out of Stock",
         },
         {
           where: {

@@ -1,10 +1,12 @@
 const db = require("../models/index");
 const crypto = require('crypto');
+const Utils = require('./Utils');
 
-let getAll = (id) => {
+let getAll = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Theme.findAll();
+      Utils.setStatus(data);
       resolve(data);
     } catch (e) {
       reject(e);
@@ -21,6 +23,7 @@ let getThemeOfCreator = (idcreator) => {
           }
         }
       );
+      Utils.setStatus(data);
       resolve(data);
     } catch (e) {
       reject(e);
@@ -32,6 +35,7 @@ let getOne = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Theme.findByPk(id);
+      data.status = data.status.readInt8();
       resolve(data);
     } catch (e) {
       reject(e);
@@ -55,13 +59,12 @@ let createTheme = (name, idcreator) => {
   });
 };
 
-let updateTheme = (id, name,status) => {
+let updateTheme = (id, name) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Theme.update(
         {
           name: name,
-          status: status,
         },
         {
           where: {

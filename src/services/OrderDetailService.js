@@ -80,12 +80,30 @@ let updateOrderDetail = (idorderdetail, quantity) => {
 let deleteOrderDetail = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.OrderCartDetail.destroy({
+      let order = await db.OrderCartDetail.findOne({
+        attributes: ["idorder"],
         where: {
           idorderdetail: id,
         },
       });
-      resolve(data);
+      let orderStatus = await db.OrderCart.findOne({
+        attributes: ["status"],
+        where: {
+          idorder: order.idorder,
+        },
+      });
+      if (orderStatus.status.readInt8() !== 0) {
+        let data = await db.OrderCartDetail.destroy({
+          where: {
+            idorderdetail: id,
+          },
+        });
+        resolve(data);
+      } else {
+        reject({
+          message: "The order is ordered - Cannot delete order detail",
+        });
+      }
     } catch (e) {
       reject(e);
     }

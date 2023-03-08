@@ -91,11 +91,8 @@ module.exports = {
       const name = req.body.name;
       const quantity = req.body.quantity;
       const price = req.body.price;
-      const status = req.body.status;
-      const idproductcategory = req.body.idproductcategory;
-      const idcollection = req.body.idcollection;
       
-      let data = await ProductService.updateProduct(id, name,quantity, price,status,idproductcategory,idcollection);
+      let data = await ProductService.updateProduct(id, name,quantity, price);
       console.log("____Update Product Successful");
 
       return res.status(200).json({
