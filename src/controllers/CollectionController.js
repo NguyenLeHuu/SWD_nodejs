@@ -9,13 +9,25 @@ module.exports = {
          #swagger.description = "Get all collections"
         */
     try {
-      let data = await CollectionService.getAll();
 
-      return res.status(200).json({
-        status: 200,
-        message: "Get list collections successful!",
-        data: data,
-      });
+      const categoriesRedis = await redis.clientGet("categories")
+      if(categoriesRedis){
+        const categories = JSON.parse(categoriesRedis)
+        console.log("_______có trong redis nè____");
+        console.log(categories);
+        return res.status(200).json({
+          status: 200,
+          message: "Get list collections successful!",
+          data: categories,
+        });
+      }else{
+        let data = await CollectionService.getAll();
+        return res.status(200).json({
+          status: 200,
+          message: "Get list collections successful!",
+          data: data,
+        });
+      }
     } catch (error) {
       console.log("____Cannot get all collections");
       throw error;
