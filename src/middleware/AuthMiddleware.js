@@ -34,6 +34,20 @@ const isAdmin = async (req, res, next) => {
   }
 };
 
+const isAgency = async (req, res, next) => {
+  try {
+    const uid = req.uid
+    const agency = await db.Admin.findByPk(uid);
+    if (agency !== null) {
+      next();
+    }else{
+      return res.status(401).send("Authorize is not valid");
+    }
+  } catch (error) {
+    return res.status(401).send("Authentication not valid");
+  }
+};
+
 const isCreator = async (req, res, next) => {
   try {
     const uid = req.uid
