@@ -11,6 +11,8 @@ route.post("/add", OrderController.store);
 
 route.put("/update-status/:idorder", OrderController.updateStatus);
 
+route.put("/update-tracking/:idorder", OrderController.updateTracking);
+
 route.put("/update-total/:idorder", OrderController.updateTotal);
 
 module.exports = route;
