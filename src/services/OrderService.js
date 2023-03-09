@@ -22,11 +22,24 @@ let getByCustomer = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.OrderCart.findAll({
+        include: [
+          {
+            model: db.OrderCartDetail,
+            attributes: [
+              "idorderdetail",
+              "idproduct",
+              "quantity",
+              "totalprice",
+            ],
+            group: "idorder",
+          },
+        ],
+        raw: false,
+        nest: true,
         where: {
           idcustomer: id,
         },
       });
-      Utils.setStatus(data);
       resolve(data);
     } catch (e) {
       reject(e);
