@@ -48,14 +48,16 @@ module.exports = {
       let imageAddress = "";
       const idproduct = req.body.idproduct;
       const idfeedback = req.body.idfeedback;
+      const idcollection = req.body.idcollection;
       const file = req.files.file;
       const uploadParams = {
         Bucket: "swd-upload-images",
         Key:
-          "product-" +
+          "collection-" +
+          idcollection +
+          "/product-" +
           idproduct +
-          "/" +
-          "feedback-" +
+          "/feedback-" +
           idfeedback +
           "/" +
           file.name,
@@ -70,7 +72,12 @@ module.exports = {
         } else {
           console.log("Upload successful");
           imageAddress = data.Location.toString();
-          ImageService.createImage(idproduct, idfeedback, imageAddress);
+          ImageService.createImage(
+            idcollection,
+            idproduct,
+            idfeedback,
+            imageAddress
+          );
         }
       });
 
@@ -117,8 +124,12 @@ module.exports = {
       const uploadParams = {
         Bucket: "swd-upload-images",
         Key:
-          "product-" + idproduct + "/" +
-          "feedback-" + idfeedback + "/" +
+          "product-" +
+          idproduct +
+          "/" +
+          "feedback-" +
+          idfeedback +
+          "/" +
           file.name,
         Body: Buffer.from(file.data),
         ContentType: file.mimetype,
