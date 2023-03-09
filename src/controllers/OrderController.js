@@ -4,14 +4,33 @@ const fcm = require("../services/fcm");
 const redis = require("../services/redis");
 
 module.exports = {
-  async index(req, res) {
+  async getByAgency(req, res) {
+    /* 
+        #swagger.tags = ['Order/Cart']
+         #swagger.description = "Get all order by agency id"
+        */
+    try {
+      const id = req.params["idagency"];
+      let data = await OrderService.getByAgency(id);
+
+      return res.status(200).json({
+        status: 200,
+        message: "Get list order/cart by agency id successful!",
+        data: data,
+      });
+    } catch (error) {
+      console.log("____Cannot get order cart by agency id");
+      throw error;
+    }
+  },
+  async getbyCustomer(req, res) {
     /* 
         #swagger.tags = ['Order/Cart']
          #swagger.description = "Get all order by customer id"
         */
     try {
-      const id = req.params["id"];
-      let data = await OrderService.getAll(id);
+      const id = req.params["idcustomer"];
+      let data = await OrderService.getByCustomer(id);
 
       return res.status(200).json({
         status: 200,

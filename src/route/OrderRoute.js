@@ -2,25 +2,15 @@ const promiseRouter = require("express-promise-router");
 const OrderController = require("../controllers/OrderController");
 const AuthMiddleware = require("../middleware/AuthMiddleware");
 
-let route =  promiseRouter();
-route.get(
-  "/:id",
-  OrderController.index
-);
+let route = promiseRouter();
+route.get("/agency/:idagency", OrderController.getByAgency);
 
-route.post(
-  "/add",
-  OrderController.store
-);
+route.get("/customer/:idcustomer", OrderController.getbyCustomer);
 
-route.put(
-    "/update-status/:idorder",
-    OrderController.updateStatus
-)
+route.post("/add", OrderController.store);
 
-route.put(
-  "/update-total/:idorder",
-  OrderController.updateTotal
-)
+route.put("/update-status/:idorder", OrderController.updateStatus);
+
+route.put("/update-total/:idorder", OrderController.updateTotal);
 
 module.exports = route;

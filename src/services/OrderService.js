@@ -1,14 +1,30 @@
 const db = require("../models/index");
 const crypto = require("crypto");
-const Utils = require('./Utils');
+const Utils = require("./Utils");
 
-let getAll = (id) => {
+let getByAgency = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.OrderCart.findAll({
-        where : {
-          idcustomer : id,
-        }
+        where: {
+          idagency: id,
+        },
+      });
+      Utils.setStatus(data);
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let getByCustomer = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.OrderCart.findAll({
+        where: {
+          idcustomer: id,
+        },
       });
       Utils.setStatus(data);
       resolve(data);
@@ -21,7 +37,7 @@ let getAll = (id) => {
 let createOrder = (idcustomer, idagency) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let id = crypto.randomBytes(15).toString('hex');
+      let id = crypto.randomBytes(15).toString("hex");
       let data = await db.OrderCart.create({
         idorder: id,
         idcustomer: idcustomer,
@@ -61,10 +77,10 @@ let updateOrderStatus = (idorder) => {
 let updateCartTotal = (idorder) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let total = await db.OrderCartDetail.sum('totalprice', {
+      let total = await db.OrderCartDetail.sum("totalprice", {
         where: {
           idorder: idorder,
-        }
+        },
       });
       let data = await db.OrderCart.update(
         {
@@ -84,7 +100,8 @@ let updateCartTotal = (idorder) => {
 };
 
 module.exports = {
-  getAll: getAll,
+  getByAgency: getByAgency,
+  getByCustomer: getByCustomer,
   createOrder: createOrder,
   updateOrderStatus: updateOrderStatus,
   updateCartTotal: updateCartTotal,
