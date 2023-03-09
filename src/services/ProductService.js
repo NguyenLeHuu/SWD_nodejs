@@ -6,7 +6,7 @@ let getAll = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!data.name) {
-        data.name = " ";
+        data.name = "";
       }
       if (!data.category) {
         data.category = "%";
@@ -21,7 +21,7 @@ let getAll = (data) => {
         data.min = 0;
       }
       if (!data.max) {
-        data.max = 10000; //gia cao nhat
+        data.max = 10000000; //gia cao nhat
       }
 
       let products = await db.Product.findAll({
@@ -83,19 +83,29 @@ let getOne = (id) => {
   });
 };
 
-let createProduct = (data, image) => {
+let createProduct = (data, listImage) => {
+  console.log(listImage);
   return new Promise(async (resolve, reject) => {
     try {
       let id = crypto.randomBytes(15).toString("hex");
-      let result = await db.Product.create({
+      const result = await db.Product.create({
         idproduct: id,
         name: data.name,
         quantity: data.quantity,
         price: data.price,
         idproductcategory: data.idproductcategory,
-        idcollection: data.idcollection,
-        image: image,
+        idcollection: data.idcollection
       });
+
+      listImage.forEach(async element => {
+        const idimage = crypto.randomBytes(15).toString("hex");
+        await db.Image.create({
+          idimage: idimage,
+          urlImage: element,
+          idproduct: id
+        })
+    });
+
       resolve(result);
     } catch (e) {
       reject(e);

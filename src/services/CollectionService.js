@@ -48,13 +48,13 @@ let createCollection = (data, image) => {
   return new Promise(async (resolve, reject) => {
     try {
       let id = crypto.randomBytes(15).toString('hex');
-      let result = await db.Collection.create({
+      await db.Collection.create({
         idcollection: id,
         name: data.name,
         idtheme: data.idtheme,
         image: image,
       });
-      resolve(result);
+      resolve("success!");
     } catch (e) {
       reject(e);
     }

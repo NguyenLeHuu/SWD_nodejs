@@ -53,27 +53,27 @@ module.exports = {
   async store(req, res) {
     // #swagger.tags = ['Product']
     /*
-          #swagger.consumes = ['multipart/form-data']  
-          #swagger.parameters['image'] = {
+         #swagger.consumes = ['multipart/form-data']  
+          #swagger.parameters['singleFile'] = {
               in: 'formData',
               type: 'file',
-              required: 'false',
+              required: 'true',
         } */
     try {
-      const { name, quantity, price, idproductcategory, idcollection } =
-        req.body;
-      let image =
-        "https://cdn.softaz.vn/data/Product/EE462004-D30A-452B-9FDF-C58298FADF6F/Gi%C3%A0y%20th%E1%BB%83%20thao%20Tiempo%20xanh%20B%20(1).jpg?h=270";
-      if (req.file) {
-        image = await Firebase.uploadImage(req.file);
-      }
-      let data = await ProductService.createProduct(req.body, image);
+      const { name, quantity, price, idproductcategory, idcollection } = req.body;
+      const listImage = [];
+      req.files.forEach(async file =>  {
+        const url = await Firebase.uploadImage(file);
+        listImage.push(url);
+      });
+
+       await ProductService.createProduct(req.body,listImage);
+
       console.log("____Create Product Successful");
 
       return res.status(200).json({
         status: 200,
         message: "Create Product Successful!",
-        data: data,
       });
     } catch (err) {
       console.log("____Create Product Failed");

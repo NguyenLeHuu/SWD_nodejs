@@ -1,31 +1,22 @@
 const promiseRouter = require("express-promise-router");
 const CollectionController = require("../controllers/CollectionController");
 const AuthMiddleware = require("../middleware/AuthMiddleware");
+const multer = require('multer');
+let route = promiseRouter();
 
-let route =  promiseRouter();
-route.get(
-  "/",
-  CollectionController.index
-);
+const Multer = multer({
+  storage: multer.memoryStorage(),
+  limits: 1024 * 1024,
+});
 
-route.get(
-  "/:id",
-  CollectionController.getOne
-);
+route.get("/", CollectionController.index);
 
-route.post(
-  "/create",
-  CollectionController.store
-);
+route.get("/:id", CollectionController.getOne);
 
-route.put(
-    "/update/:id",
-    CollectionController.update
-)
+route.post("/create", Multer.single("image"), CollectionController.store);
 
-route.delete(
-    "/:id",
-    CollectionController.delete
-);
+route.put("/update/:id", CollectionController.update);
+
+route.delete("/:id", CollectionController.delete);
 
 module.exports = route;
