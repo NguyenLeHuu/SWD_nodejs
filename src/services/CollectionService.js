@@ -14,6 +14,24 @@ let getAll = () => {
   });
 };
 
+let getCollectionsOfTheme = (idtheme) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.Collection.findAll(
+        {
+          where: {
+            idtheme: idtheme
+          }
+        }
+      );
+      Utils.setStatus(data);
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 let getOne = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -83,6 +101,7 @@ let deleteCollection = (id) => {
 
 module.exports = {
   getAll: getAll,
+  getCollectionsOfTheme,
   getOne: getOne,
   createCollection: createCollection,
   updateCollection: updateCollection,

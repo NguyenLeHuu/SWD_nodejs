@@ -9,20 +9,16 @@ module.exports = {
          #swagger.description = "Get all collections"
         */
     try {
-
-      const collectionRedis = await redis.clientGet("collections")
-      if(collectionRedis){
-        const collections = JSON.parse(collectionRedis)
-        console.log("_______có trong redis nè____");
-        console.log(collections);
+      const idtheme = req.query.idtheme;
+      if (idtheme) {
+        let result = await CollectionService.getCollectionsOfTheme(idtheme);
         return res.status(200).json({
           status: 200,
           message: "Get list collections successful!",
-          data: collections,
+          data: result,
         });
-      }else{
+      } else {
         let data = await CollectionService.getAll();
-        await redis.clientSet("collections",JSON.stringify(data))
         return res.status(200).json({
           status: 200,
           message: "Get list collections successful!",
@@ -43,20 +39,19 @@ module.exports = {
       const id = req.params.id;
       let data = await CollectionService.getOne(id);
 
-      if(data != null) {
+      if (data != null) {
         return res.status(200).json({
           status: 200,
           message: "Get collection successful!",
           data: data,
         });
-      }else{
+      } else {
         return res.status(400).json({
           status: 400,
           message: "Collection not exist!",
           data: data,
         });
       }
-
     } catch (error) {
       console.log("____Cannot get collection");
       throw error;
@@ -74,8 +69,8 @@ module.exports = {
       let data = await CollectionService.createCollection(name, idtheme);
       console.log("____Create Collection Successful");
 
-      let collections = await CategoryService.getAll();
-      await redis.clientSet("collections",JSON.stringify(collections))
+      // let collections = await CategoryService.getAll();
+      // await redis.clientSet("collections", JSON.stringify(collections));
 
       return res.status(200).json({
         status: 200,
