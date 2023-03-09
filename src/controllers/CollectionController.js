@@ -1,5 +1,5 @@
 const CollectionService = require("../services/CollectionService");
-const fcm = require("../services/fcm");
+const Firebase = require("../services/Firebase");
 const redis = require("../services/redis");
 
 module.exports = {
@@ -59,18 +59,27 @@ module.exports = {
   },
 
   async store(req, res) {
-    /* 
-        #swagger.tags = ['Collection']
-         #swagger.description = "Create new collection"
-        */
+    // #swagger.tags = ['Collection']
+    /*
+          #swagger.consumes = ['multipart/form-data']  
+          #swagger.parameters['image'] = {
+              in: 'formData',
+              type: 'file',
+              required: 'false',
+        } */
     try {
-      const name = req.body.name;
-      const idtheme = req.body.idtheme;
-      let data = await CollectionService.createCollection(name, idtheme);
+      
+      
+      const { name, idtheme } =
+        req.body;
+      let image =
+        "https://cdn.shopify.com/s/files/1/0034/8759/6579/files/Black_large_logo.png?height=628&pad_color=fff&v=1614328540&width=1200&fbclid=IwAR2mUhBNanKugkGMIUThYS_9gCYlHaSyayw8Mc6KKKBQKox_CbOQlaoX7BM";
+      if (req.file) {
+        image = await Firebase.uploadImage(req.file);
+      }
+      let data = await CollectionService.createCollection(req.body, image);
       console.log("____Create Collection Successful");
 
-      // let collections = await CategoryService.getAll();
-      // await redis.clientSet("collections", JSON.stringify(collections));
 
       return res.status(200).json({
         status: 200,

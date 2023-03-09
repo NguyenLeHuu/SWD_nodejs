@@ -1,6 +1,7 @@
 const AgencyService = require("../services/AgencyService");
-const fcm = require("../services/fcm");
+const Firebase = require("../services/Firebase");
 const redis = require("../services/redis");
+
 module.exports = {
   async index(req, res) {
     /* 
@@ -13,8 +14,8 @@ module.exports = {
       const tokenDevice =
         "eowymDzjzrDw-YfpzdJgJs:APA91bFpIgAosp6Z3SgHZr59sr2Juo9uJanEE7WtSw7Chp-bgNFcGyefVETfYJ1fuKhTDcmDmdtYd8TuyeALS_MkfIIyC-FU4q5gRfZCF6YHWkdfASqiE1Oul1NsS5GSFh8-hu0n545G";
       // console.log(req.headers["tokenNotification"]);
-      // fcm.setMsg(tokenDevice, "Bảo mật tài khoản cảu bạn khỏi các quảng cáo");
-      // fcm.sendNoti();
+      Firebase.setMsg(tokenDevice, "Bảo mật tài khoản cảu bạn khỏi các quảng cáo");
+      Firebase.sendNoti();
       // fcm.sendNotiToToPic();
 
       return res.status(200).json({
