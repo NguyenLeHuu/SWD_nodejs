@@ -35,6 +35,7 @@ let addOrderDetail = (idorder, idproduct, quantity) => {
         idorder: idorder,
         totalprice: total,
       });
+      await OrderService.updateCartTotal(idorder);
       resolve(data);
     } catch (e) {
       reject(e);
