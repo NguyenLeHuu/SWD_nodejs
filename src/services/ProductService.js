@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op } = require("sequelize");
 const db = require("../models/index");
 const crypto = require("crypto");
 
@@ -21,22 +21,25 @@ let getAll = (data) => {
         data.min = 0;
       }
       if (!data.max) {
-        data.max = 10000;//gia cao nhat
+        data.max = 10000; //gia cao nhat
       }
-      
-  
 
       let products = await db.Product.findAll({
         // include:[
         //   {
-        //     model: db.Category, 
-        //     attributes: [], 
+        //     model: db.Category,
+        //     attributes: [],
         //   }
         // ],
         // raw:true,
         // nest:true,
         where: {
           [Op.and]: [
+            {
+              idcollection: {
+                [Op.eq]: `${data.idcollection.trim()}`,
+              },
+            },
             {
               name: {
                 [Op.like]: `%${data.name.trim()}%`,
@@ -54,7 +57,7 @@ let getAll = (data) => {
             },
             {
               price: {
-                [Op.between]: [`${data.min}`,`${data.max}`],
+                [Op.between]: [`${data.min}`, `${data.max}`],
               },
             },
           ],
@@ -80,25 +83,20 @@ let getOne = (id) => {
   });
 };
 
-let createProduct = (
-  name,
-  quantity,
-  price,
-  idproductcategory,
-  idcollection
-) => {
+let createProduct = (data, image) => {
   return new Promise(async (resolve, reject) => {
     try {
       let id = crypto.randomBytes(15).toString("hex");
-      let data = await db.Product.create({
+      let result = await db.Product.create({
         idproduct: id,
-        name: name,
-        quantity: quantity,
-        price: price,
-        idproductcategory: idproductcategory,
-        idcollection: idcollection,
+        name: data.name,
+        quantity: data.quantity,
+        price: data.price,
+        idproductcategory: data.idproductcategory,
+        idcollection: data.idcollection,
+        image: image,
       });
-      resolve(data);
+      resolve(result);
     } catch (e) {
       reject(e);
     }

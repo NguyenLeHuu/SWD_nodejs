@@ -10,7 +10,7 @@ const route = require("./route/Route");
 
 const cors = require("cors");
 
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 const swaggerUI = require("swagger-ui-express");
 
@@ -29,13 +29,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-var admin = require("firebase-admin");
+// var admin = require("firebase-admin");
 
-var serviceAccount = require("../serviceAccountKey.json");
+// var serviceAccount = require("../serviceAccountKey.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
 
 paypal.configure({
   'mode': 'sandbox', //sandbox or live

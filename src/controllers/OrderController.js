@@ -1,6 +1,5 @@
 const { RedshiftData } = require("aws-sdk");
 const OrderService = require("../services/OrderService");
-const fcm = require("../services/fcm");
 const redis = require("../services/redis");
 
 module.exports = {

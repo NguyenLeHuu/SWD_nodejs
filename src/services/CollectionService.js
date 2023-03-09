@@ -44,16 +44,17 @@ let getOne = (id) => {
   });
 };
 
-let createCollection = (name, idtheme) => {
+let createCollection = (data, image) => {
   return new Promise(async (resolve, reject) => {
     try {
       let id = crypto.randomBytes(15).toString('hex');
-      let data = await db.Collection.create({
+      let result = await db.Collection.create({
         idcollection: id,
-        name: name,
-        idtheme: idtheme,
+        name: data.name,
+        idtheme: data.idtheme,
+        image: image,
       });
-      resolve(data);
+      resolve(result);
     } catch (e) {
       reject(e);
     }
