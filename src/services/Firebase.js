@@ -9,7 +9,7 @@ var fcm = new FCM(serverKey);
 
 const serviceAccount = require("../config/firebase-sdk.json");
 
-const BUCKET ="prmflowershop.appspot.com";
+const BUCKET ="fir-auth-uicha.appspot.com";
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

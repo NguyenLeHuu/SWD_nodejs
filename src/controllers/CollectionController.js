@@ -75,6 +75,7 @@ module.exports = {
       let image =
         "https://cdn.shopify.com/s/files/1/0034/8759/6579/files/Black_large_logo.png?height=628&pad_color=fff&v=1614328540&width=1200&fbclid=IwAR2mUhBNanKugkGMIUThYS_9gCYlHaSyayw8Mc6KKKBQKox_CbOQlaoX7BM";
       if (req.file) {
+        console.log("___zô");
         image = await Firebase.uploadImage(req.file);
       }
       let data = await CollectionService.createCollection(req.body, image);
