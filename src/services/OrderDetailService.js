@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const crypto = require("crypto");
+const OrderService = require("./OrderService");
 
 let getAll = (id) => {
   return new Promise(async (resolve, reject) => {
@@ -42,11 +43,11 @@ let addOrderDetail = (idorder, idproduct, quantity) => {
 };
 
 let updateOrderDetail = (idorderdetail, quantity) => {
-  if (quantity === 0) {
+  if (quantity !== 0) {
     return new Promise(async (resolve, reject) => {
       try {
-        let searchProduct = await db.OrderCartDetail.findOne({
-          attributes: ["idproduct"],
+        let search = await db.OrderCartDetail.findOne({
+          attributes: ["idproduct", "idorder"],
           where: {
             idorderdetail: idorderdetail,
           },
@@ -54,7 +55,7 @@ let updateOrderDetail = (idorderdetail, quantity) => {
         let Product = await db.Product.findOne({
           attributes: ["price"],
           where: {
-            idproduct: searchProduct.idproduct,
+            idproduct: search.idproduct,
           },
         });
         let total = Product.price * quantity;
@@ -69,6 +70,7 @@ let updateOrderDetail = (idorderdetail, quantity) => {
             },
           }
         );
+        await OrderService.updateCartTotal(search.idorder);
         resolve(data);
       } catch (e) {
         reject(e);
@@ -114,9 +116,9 @@ let getOrderCartDetail = (idorder) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.OrderCartDetail.findOne({
-        where : {
-          idorder : idorder,
-        }
+        where: {
+          idorder: idorder,
+        },
       });
       console.log("________");
       console.log(data);
