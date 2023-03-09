@@ -1,12 +1,11 @@
 const db = require("../models/index");
 const crypto = require("crypto");
-const Utils = require('./Utils');
+const Utils = require("./Utils");
 
 let getAll = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Category.findAll({
-      });
+      let data = await db.Category.findAll({});
       Utils.setStatus(data);
       resolve(data);
     } catch (e) {
@@ -18,7 +17,7 @@ let getAll = () => {
 let createCategory = (name, idagency) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let id = crypto.randomBytes(15).toString('hex');
+      let id = crypto.randomBytes(15).toString("hex");
       let data = await db.Category.create({
         idproductcategory: id,
         name: name,

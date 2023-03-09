@@ -22,11 +22,24 @@ let getByCustomer = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.OrderCart.findAll({
+        include: [
+          {
+            model: db.OrderCartDetail,
+            attributes: [
+              "idorderdetail",
+              "idproduct",
+              "quantity",
+              "totalprice",
+            ],
+            group: "idorder",
+          },
+        ],
+        raw: false,
+        nest: true,
         where: {
           idcustomer: id,
         },
       });
-      Utils.setStatus(data);
       resolve(data);
     } catch (e) {
       reject(e);
@@ -60,6 +73,28 @@ let updateOrderStatus = (idorder) => {
         {
           status: false,
           datetime: new Date(),
+          tracking: "Pending",
+        },
+        {
+          where: {
+            idorder: idorder,
+          },
+        }
+      );
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let updateOrderTracking = (idorder, tracking) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.OrderCart.update(
+        {
+          datetime: new Date(),
+          tracking: tracking,
         },
         {
           where: {
@@ -105,4 +140,5 @@ module.exports = {
   createOrder: createOrder,
   updateOrderStatus: updateOrderStatus,
   updateCartTotal: updateCartTotal,
+  updateOrderTracking: updateOrderTracking,
 };

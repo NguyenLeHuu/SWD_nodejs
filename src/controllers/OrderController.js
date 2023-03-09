@@ -86,6 +86,30 @@ module.exports = {
     }
   },
 
+  async updateTracking(req, res) {
+    /* 
+        #swagger.tags = ['Order/Cart']
+         #swagger.description = "Update tracking status by idorder
+         Tracking: Processing, Completed, Cancelled "
+        */
+    try {
+      const idorder = req.params["idorder"];
+      const tracking = req.body.tracking;
+
+      let data = await OrderService.updateOrderTracking(idorder, tracking);
+      console.log("____Update Order Tracking Successful");
+
+      return res.status(200).json({
+        status: 200,
+        message: "Update Order Tracking Successful!",
+        data: data,
+      });
+    } catch (err) {
+      console.log("____Update Tracking Failed");
+      throw err;
+    }
+  },
+
   async updateTotal(req, res) {
     /* 
         #swagger.tags = ['Order/Cart']
