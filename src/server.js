@@ -20,12 +20,12 @@ require("dotenv").config(); // get value from .env
 
 let app = express();
 app.use(cors({ origin: true }));
-// app.use(cors({
-//   "origin": "*",
-//   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   "preflightContinue": true,
-//   "optionsSuccessStatus": 204
-// }));
+app.use(cors({
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": true,
+  "optionsSuccessStatus": 204
+}));
 // app.use(
 //   cors({ origin: "https://uicha.vercel.app", optionsSuccessStatus: 200 })
 // );
