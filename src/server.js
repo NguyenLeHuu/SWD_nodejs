@@ -19,10 +19,12 @@ const paypal = require("paypal-rest-sdk");
 require("dotenv").config(); // get value from .env
 
 let app = express();
-// app.use(cors({ origin: true }));
-app.use(
-  cors({ origin: "https://uicha.vercel.app", optionsSuccessStatus: 200 })
-);
+app.use(cors({ origin: true }));
+// app.use(
+//   cors({ origin: "https://uicha.vercel.app", optionsSuccessStatus: 200 })
+// );
+
+
 
 // config app
 
