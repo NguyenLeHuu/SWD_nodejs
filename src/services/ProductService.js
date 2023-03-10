@@ -83,8 +83,9 @@ let getOne = (id) => {
   });
 };
 
-let createProduct = (data, listImage) => {
-  console.log(listImage);
+// let createProduct = (data, listImage) => {
+let createProduct = (data, image) => {
+  // console.log(listImage);
   return new Promise(async (resolve, reject) => {
     try {
       let id = crypto.randomBytes(15).toString("hex");
@@ -94,17 +95,18 @@ let createProduct = (data, listImage) => {
         quantity: data.quantity,
         price: data.price,
         idproductcategory: data.idproductcategory,
-        idcollection: data.idcollection
+        idcollection: data.idcollection,
+        image: image,
       });
 
-      listImage.forEach(async element => {
-        const idimage = crypto.randomBytes(15).toString("hex");
-        await db.Image.create({
-          idimage: idimage,
-          urlImage: element,
-          idproduct: id
-        })
-    });
+      // listImage.forEach(async (element) => {
+      //   const idimage = crypto.randomBytes(15).toString("hex");
+      //   await db.Image.create({
+      //     idimage: idimage,
+      //     urlImage: element,
+      //     idproduct: id,
+      //   });
+      // });
 
       resolve(result);
     } catch (e) {
