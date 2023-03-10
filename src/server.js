@@ -1,6 +1,6 @@
-const https = require('https');
+const https = require("https");
 
-const fs = require('fs');
+const fs = require("fs");
 
 const express = require("express");
 
@@ -12,27 +12,30 @@ const cors = require("cors");
 
 const swaggerUI = require("swagger-ui-express");
 
-const swaggerFile = require('./swagger_output.json');
+const swaggerFile = require("./swagger_output.json");
 
-const paypal = require('paypal-rest-sdk');
+const paypal = require("paypal-rest-sdk");
 
 require("dotenv").config(); // get value from .env
 
 let app = express();
-app.use(cors({ origin: true }));
+// app.use(cors({ origin: true }));
+app.use(
+  cors({ origin: "https://uicha.vercel.app", optionsSuccessStatus: 200 })
+);
 
 // config app
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 paypal.configure({
-  'mode': 'sandbox', //sandbox or live
-  'client_id': 'AYAzJhgEv8eAYdypu-Q_9N06vD2JcR5qeRkz6G32J7nVJ6MCvEF7fCr4KIgAGocKfxzLk5RI33aHarDG',
-  'client_secret': 'EB5yajw5uYXV53u27wrY_wg3DFSSSfAmRj1we1ZElIjZO8z1Dt1jRFpzQq0iFGZA3bquSHKf_QyDwove'
+  mode: "sandbox", //sandbox or live
+  client_id:
+    "AYAzJhgEv8eAYdypu-Q_9N06vD2JcR5qeRkz6G32J7nVJ6MCvEF7fCr4KIgAGocKfxzLk5RI33aHarDG",
+  client_secret:
+    "EB5yajw5uYXV53u27wrY_wg3DFSSSfAmRj1we1ZElIjZO8z1Dt1jRFpzQq0iFGZA3bquSHKf_QyDwove",
 });
-
 
 app.use("/", route);
 
