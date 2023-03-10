@@ -130,26 +130,6 @@ let getOrderCartDetail = (idorder) => {
   });
 };
 
-let updateOrderDetailStatus = (idorderdetail) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let data = await db.OrderCartDetail.update(
-        {
-          status: false,
-          datetime: new Date(),
-        },
-        {
-          where: {
-            idorderdetail: idorderdetail,
-          },
-        }
-      );
-      resolve(data);
-    } catch (e) {
-      reject(e);
-    }
-  });
-};
 
 module.exports = {
   getAll: getAll,
@@ -157,5 +137,4 @@ module.exports = {
   updateOrderDetail: updateOrderDetail,
   deleteOrderDetail: deleteOrderDetail,
   getOrderCartDetail,
-  updateOrderDetailStatus,
 };

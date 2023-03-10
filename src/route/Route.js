@@ -15,6 +15,7 @@ const orderDetailRoute = require('./OrderDetailRoute');
 const createPayRoute = require('./CreatePayRoute');
 const createPaySuccessRoute = require('./PaySuccessRoute');
 const createPayCancelRoute = require('./PayCancelRoute');
+const checkoutRoute = require('./CheckoutRoute');
 
 router.use('/signup',signupRoute);
 router.use('/login',loginRoute);
@@ -29,5 +30,6 @@ router.use('/orderdetail',orderDetailRoute);
 router.use('/pay',createPayRoute);
 router.use('/success',createPaySuccessRoute);
 router.use('/cancel',createPayCancelRoute);
+router.use('/checkout',checkoutRoute);
 
 module.exports=router
