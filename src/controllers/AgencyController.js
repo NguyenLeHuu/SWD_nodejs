@@ -11,13 +11,6 @@ module.exports = {
     try {
       let data = await AgencyService.getAll();
 
-      const tokenDevice =
-        "eowymDzjzrDw-YfpzdJgJs:APA91bFpIgAosp6Z3SgHZr59sr2Juo9uJanEE7WtSw7Chp-bgNFcGyefVETfYJ1fuKhTDcmDmdtYd8TuyeALS_MkfIIyC-FU4q5gRfZCF6YHWkdfASqiE1Oul1NsS5GSFh8-hu0n545G";
-      // console.log(req.headers["tokenNotification"]);
-      Firebase.setMsg(tokenDevice, "Bảo mật tài khoản cảu bạn khỏi các quảng cáo");
-      Firebase.sendNoti();
-      // fcm.sendNotiToToPic();
-
       return res.status(200).json({
         status: 200,
         message: "Get agency successful!",

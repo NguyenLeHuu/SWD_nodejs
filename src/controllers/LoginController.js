@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const admin = require("firebase-admin");
 const db = require("../models/index");
+const Firebase = require("../services/Firebase");
+
 var refreshTokens = [];
 module.exports = {
   async checkUserAccount(req, res) {
@@ -39,6 +41,8 @@ module.exports = {
               process.env.REFRESH_TOKEN_SECRET
             );
             refreshTokens.push(refreshToken);
+            Firebase.registerUichaTopic();
+            Firebase.fcm_uicha_Topic("Chào mừng bạn ghé chơi");
             res.json({ accessToken, refreshToken, role });
           } else {
             res.status(400).json({
