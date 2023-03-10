@@ -1,7 +1,7 @@
 const db = require("../models/index");
 const crypto = require("crypto");
 
-let createPayment = (idorder, total) => {
+let createPayment = (idorder, total,paymentmethod) => {
   return new Promise(async (resolve, reject) => {
     try {
       let id = crypto.randomBytes(15).toString("hex");
@@ -9,6 +9,7 @@ let createPayment = (idorder, total) => {
         idpayment: id,
         idorder: idorder,
         total: total,
+        paymentmethod: paymentmethod
       });
       resolve(data);
     } catch (e) {

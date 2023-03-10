@@ -11,7 +11,7 @@ module.exports = {
       const items_cart = req.body.items_cart;
       const total = req.body.total;
       const idorder = req.body.idorder;
-      let idpayment = await PayService.createPayment(idorder,total)
+      let idpayment = await PayService.createPayment(idorder,total,"paypal")
       
 
       const create_payment_json = {

@@ -12,7 +12,7 @@ module.exports = {
       // const items_cart = req.body.items_cart;
       const total = req.body.total;
       const idorder = req.body.idorder;
-      await PayService.createPayment(idorder,total)//nhận hàng xong nhớ cập nhật payment status
+      await PayService.createPayment(idorder,total,"cash")//nhận hàng xong nhớ cập nhật payment status
 
 
       await OrderService.updateOrderStatus(idorder)
