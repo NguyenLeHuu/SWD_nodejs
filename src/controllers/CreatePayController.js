@@ -22,8 +22,8 @@ module.exports = {
         redirect_urls: {
           // return_url: `http://localhost:8080/success/?idpayment=${idpayment.idpayment}&idorder=${idorder}`,
           // cancel_url: "http://localhost:8080/cancel",
-          return_url: "https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080/success?idpayment=${idpayment.idpayment}&idorder=${idorder}",
-          cancel_url: "https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080/cancel",
+          return_url: `https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080/success?idpayment=${idpayment.idpayment}&idorder=${idorder}`,
+          cancel_url: `https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080/cancel`,
         },
         transactions: [
           {

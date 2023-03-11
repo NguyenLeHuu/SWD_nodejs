@@ -74,6 +74,9 @@ module.exports = {
       let data = await CategoryService.deleteCategory(id);
       console.log("____Delete Category Successful");
 
+      let categories = await CategoryService.getAll();
+      await redis.clientSet("categories",JSON.stringify(categories))
+
       return res.status(200).json({
         status: 200,
         message: "Delete Category Successful!",
@@ -100,6 +103,9 @@ module.exports = {
 
       let data = await CategoryService.updateCategory(id, name, idagency);
       console.log("____Update Category Successful");
+
+      let categories = await CategoryService.getAll();
+      await redis.clientSet("categories",JSON.stringify(categories))
 
       return res.status(200).json({
         status: 200,
