@@ -101,6 +101,7 @@ const registerCustomerTopic = function () {
 const registerCreatorTopic = function () {
   const registrationTokens = [
     "cg9vLKO8RFaMBsW9LxELkB:APA91bFF0PM8MZOFQ_MQ4tcrEC7c6pNIRQ9s4JM7O388T75wfa5gEHDX8Il9MV7Bw79qh_MrcIJiWZ_grOcXwZ2O14SfRQMyCPDyNllJ_bNOevcig1hdh4ZvgcTBWEIIiaMNX0CQmLV0",//bảo mo
+    "fSvUQ007QASluFETXUCIdx:APA91bF_1MBgHxqFV5bf51pTXvCCS4eO3FRCIUZt-DQS6cNA0lDphCd7D6TI7Kqfzzj8DBJxg0IPqueLh8I8arDOVlPni0rXMbAW0OBbxGlZTYZI4RjlLM3VWZprhJmfVuV1FaWqtbQv",
   ];
   admin
     .messaging()
