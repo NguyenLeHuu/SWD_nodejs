@@ -101,7 +101,8 @@ const registerCustomerTopic = function () {
 const registerCreatorTopic = function () {
   const registrationTokens = [
     "cg9vLKO8RFaMBsW9LxELkB:APA91bFF0PM8MZOFQ_MQ4tcrEC7c6pNIRQ9s4JM7O388T75wfa5gEHDX8Il9MV7Bw79qh_MrcIJiWZ_grOcXwZ2O14SfRQMyCPDyNllJ_bNOevcig1hdh4ZvgcTBWEIIiaMNX0CQmLV0",//bảo mo
-    "fSvUQ007QASluFETXUCIdx:APA91bF_1MBgHxqFV5bf51pTXvCCS4eO3FRCIUZt-DQS6cNA0lDphCd7D6TI7Kqfzzj8DBJxg0IPqueLh8I8arDOVlPni0rXMbAW0OBbxGlZTYZI4RjlLM3VWZprhJmfVuV1FaWqtbQv",
+    "fSvUQ007QASluFETXUCIdx:APA91bF_1MBgHxqFV5bf51pTXvCCS4eO3FRCIUZt-DQS6cNA0lDphCd7D6TI7Kqfzzj8DBJxg0IPqueLh8I8arDOVlPni0rXMbAW0OBbxGlZTYZI4RjlLM3VWZprhJmfVuV1FaWqtbQv",//
+    "eRVsNwobSVSttr8W3LT_CZ:APA91bEvQCsQhK4JM6yX5iZt3uahN-fin6y00D5j1_zbQPQ1BHVBpbcMcpnjhKZk0cFP8-BjQ2Vss1Fp6hdiAd4m496PUsP5gr1rz-L8pQi7UgWhkYpvNmjaFwU1PSr6kZf1HEVznx9e",//q.a
   ];
   admin
     .messaging()
@@ -116,8 +117,8 @@ const registerCreatorTopic = function () {
 
 const registerUichaTopic = function () {
   const registrationTokens = [
-    "eowymDzjzrDw-YfpzdJgJs:APA91bFpIgAosp6Z3SgHZr59sr2Juo9uJanEE7WtSw7Chp-bgNFcGyefVETfYJ1fuKhTDcmDmdtYd8TuyeALS_MkfIIyC-FU4q5gRfZCF6YHWkdfASqiE1Oul1NsS5GSFh8-hu0n545G",//huu
-    // "cg9vLKO8RFaMBsW9LxELkB:APA91bFF0PM8MZOFQ_MQ4tcrEC7c6pNIRQ9s4JM7O388T75wfa5gEHDX8Il9MV7Bw79qh_MrcIJiWZ_grOcXwZ2O14SfRQMyCPDyNllJ_bNOevcig1hdh4ZvgcTBWEIIiaMNX0CQmLV0",//bao
+    // "eowymDzjzrDw-YfpzdJgJs:APA91bFpIgAosp6Z3SgHZr59sr2Juo9uJanEE7WtSw7Chp-bgNFcGyefVETfYJ1fuKhTDcmDmdtYd8TuyeALS_MkfIIyC-FU4q5gRfZCF6YHWkdfASqiE1Oul1NsS5GSFh8-hu0n545G",//huu
+    "cg9vLKO8RFaMBsW9LxELkB:APA91bFF0PM8MZOFQ_MQ4tcrEC7c6pNIRQ9s4JM7O388T75wfa5gEHDX8Il9MV7Bw79qh_MrcIJiWZ_grOcXwZ2O14SfRQMyCPDyNllJ_bNOevcig1hdh4ZvgcTBWEIIiaMNX0CQmLV0",//bao
   ];
   admin
     .messaging()
