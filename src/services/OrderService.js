@@ -2,6 +2,8 @@ const db = require("../models/index");
 const crypto = require("crypto");
 const Utils = require("./Utils");
 
+let sequelize = db.sequelize;
+
 let getByAgency = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -31,7 +33,6 @@ let getByCustomer = (id) => {
               "quantity",
               "totalprice",
             ],
-            group: "idorder",
           },
         ],
         raw: false,
@@ -40,6 +41,29 @@ let getByCustomer = (id) => {
           idcustomer: id,
         },
       });
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let getByCreator = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.sequelize.query(
+        "SELECT O.idorder, O.datetime , totalmoney, tracking, O.status, C.idcreator, C.name AS creatorname " +
+          "FROM products P, collections CL, themes T, creators C, ordercarts O, ordercartdetails OD " +
+          "WHERE P.idcollection = CL.idcollection " +
+          "AND CL.idtheme = T.idtheme " +
+          "AND T.idcreator = C.idcreator " +
+          "AND P.idproduct = OD.idproduct " +
+          "AND OD.idorder = O.idorder " +
+          "AND C.idcreator = " +
+          ` :id`,
+        { replacements: { id: id }, type: sequelize.QueryTypes.SELECT }
+      );
+      Utils.setStatus(data);
       resolve(data);
     } catch (e) {
       reject(e);
@@ -137,6 +161,7 @@ let updateCartTotal = (idorder) => {
 module.exports = {
   getByAgency: getByAgency,
   getByCustomer: getByCustomer,
+  getByCreator: getByCreator,
   createOrder: createOrder,
   updateOrderStatus: updateOrderStatus,
   updateCartTotal: updateCartTotal,

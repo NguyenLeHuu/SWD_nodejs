@@ -5,6 +5,8 @@ const AuthMiddleware = require("../middleware/AuthMiddleware");
 let route = promiseRouter();
 route.get("/agency/:idagency", OrderController.getByAgency);
 
+route.get("/creator/:idcreator", OrderController.getByCreator);
+
 route.get("/customer/:idcustomer", OrderController.getbyCustomer);
 
 route.post("/add", OrderController.store);

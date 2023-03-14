@@ -19,7 +19,7 @@ module.exports = {
       });
     } catch (error) {
       console.log("____Cannot get detail by order id");
-      throw error;
+      return res;
     }
   },
 
@@ -32,9 +32,12 @@ module.exports = {
       const idproduct = req.body.idproduct;
       const idorder = req.body.idorder;
       const quantity = req.body.quantity;
-      let data = await OrderDetailService.addOrderDetail(idorder, idproduct, quantity);
+      let data = await OrderDetailService.addOrderDetail(
+        idorder,
+        idproduct,
+        quantity
+      );
       console.log("____Add OrderDetail Successful");
-
 
       return res.status(200).json({
         status: 200,
@@ -78,7 +81,10 @@ module.exports = {
       const quantity = req.body.quantity;
       const idorderdetail = req.body.idorderdetail;
 
-      let data = await OrderDetailService.updateOrderDetail(idorderdetail, quantity);
+      let data = await OrderDetailService.updateOrderDetail(
+        idorderdetail,
+        quantity
+      );
       console.log("____Update OrderDetail Successful");
 
       return res.status(200).json({
