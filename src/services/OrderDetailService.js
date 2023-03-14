@@ -2,14 +2,22 @@ const db = require("../models/index");
 const crypto = require("crypto");
 const OrderService = require("./OrderService");
 
+let sequelize = db.sequelize;
+
 let getAll = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.OrderCartDetail.findAll({
-        where: {
-          idorder: id,
-        },
-      });
+      let data = await db.sequelize.query(
+        "SELECT idorder, idorderdetail, OD.idproduct, OD.quantity, totalprice, C.idcreator, C.name AS creatorname " +
+          "FROM products P, collections CL, themes T, creators C, ordercartdetails OD " +
+          "WHERE P.idcollection = CL.idcollection " +
+          "AND CL.idtheme = T.idtheme " +
+          "AND T.idcreator = C.idcreator " +
+          "AND P.idproduct = OD.idproduct " +
+          "AND OD.idorder = " +
+          ` :id`,
+        { replacements: { id: id }, type: sequelize.QueryTypes.SELECT }
+      );
       resolve(data);
     } catch (e) {
       reject(e);
@@ -129,7 +137,6 @@ let getOrderCartDetail = (idorder) => {
     }
   });
 };
-
 
 module.exports = {
   getAll: getAll,

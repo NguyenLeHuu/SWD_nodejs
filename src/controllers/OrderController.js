@@ -22,6 +22,25 @@ module.exports = {
       throw error;
     }
   },
+  async getByCreator(req, res) {
+    /* 
+        #swagger.tags = ['Order/Cart']
+         #swagger.description = "Get all order by creator id"
+        */
+    try {
+      const id = req.params["idcreator"];
+      let data = await OrderService.getByCreator(id);
+
+      return res.status(200).json({
+        status: 200,
+        message: "Get list order/cart by creator id successful!",
+        data: data,
+      });
+    } catch (error) {
+      console.log("____Cannot get order cart by creator id");
+      return res;
+    }
+  },
   async getbyCustomer(req, res) {
     /* 
         #swagger.tags = ['Order/Cart']
