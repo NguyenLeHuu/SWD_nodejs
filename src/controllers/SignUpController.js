@@ -20,6 +20,19 @@ module.exports = {
       const name = data.name || null;
       const phone = data.phone || null;
 
+    //   {
+    //     "role":"creator",
+    //     "idagency":"1",
+    //     "address":"any",
+    //     "data":{
+    //        "name":"Chí Cường",
+    //        "uid":"heida",
+    //        "email":"chicuong@gmail.com",
+    //        "phone":"03288168",
+    //        "picture":"https://haycafe.vn/wp-content/uploads/2021/12/Hinh-nen-Full-HD-1080-cho-may-tinh-dep.jpg"
+    //     }
+    //  }
+
       //tao account
       switch(role) {
         case "agency":

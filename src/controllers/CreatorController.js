@@ -52,7 +52,7 @@ module.exports = {
   async updateStatus(req, res) {
 /* 
         #swagger.tags = ['Creator']
-         #swagger.description = "status = 0 xin làm creator, 1 active, NULL bị khóa"
+         #swagger.description = "status = false xin làm creator, true active, NULL bị khóa"
         */
 
     try {

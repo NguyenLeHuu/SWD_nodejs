@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const admin = require("firebase-admin");
 const db = require("../models/index");
 const Firebase = require("../services/Firebase");
+const Utils = require("../services/Utils");
 
 var refreshTokens = [];
 module.exports = {
@@ -24,11 +25,10 @@ module.exports = {
 
         //sau đó kiểm tra db
         const uid = data.uid;
-        let role = checkUserInDB(uid);
-        role.then((role) => {
-          if (role) {
+        let accountdb = checkUserInDB(uid);
+        accountdb.then((accountdb) => {
+          if (accountdb) {
             console.log("____role sau khi check db:");
-            console.log(role);
             const accessToken = jwt.sign(
               { uid: data.uid },
               process.env.ACCESS_TOKEN_SECRET,
@@ -43,7 +43,7 @@ module.exports = {
             refreshTokens.push(refreshToken);
             Firebase.registerUichaTopic();
             Firebase.fcm_uicha_Topic("Chào mừng bạn ghé chơi");
-            res.json({ accessToken, refreshToken, role });
+            res.json({ accessToken, refreshToken, accountdb });
           } else {
             res.status(400).json({
               status: 400,
@@ -96,30 +96,33 @@ module.exports = {
 
 async function checkUserInDB(uid) {
   let role = null;
+  let status = null;
   try {
     console.log("__checkUserInDB");
     let AccountRoleAdmin = await db.Admin.findByPk(uid);
     if (AccountRoleAdmin) {
       role = "admin";
-      console.log(role);
+      // console.log(role);
       return role;
     }
     let AccountRoleAgency = await db.Agency.findByPk(uid);
     if (AccountRoleAgency) {
       role = "agency";
-      console.log(role);
+      // console.log(role);
       return role;
     }
     let AccountRoleCreator = await db.Creator.findByPk(uid);
     if (AccountRoleCreator) {
       role = "creator";
-      console.log(role);
-      return role;
+      Utils.setStatus(AccountRoleCreator)
+      status = AccountRoleCreator.status
+      // console.log(role);
+      return {role,status};
     }
     let AccountRoleCustomer = await db.Customer.findByPk(uid);
     if (AccountRoleCustomer) {
       role = "customer";
-      console.log(role);
+      // console.log(role);
       return role;
     }
     role = "unknown";
