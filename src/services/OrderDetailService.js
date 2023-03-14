@@ -7,16 +7,34 @@ let sequelize = db.sequelize;
 let getAll = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.sequelize.query(
-        "SELECT idorder, idorderdetail, OD.idproduct, OD.quantity, totalprice, C.idcreator, C.name AS creatorname " +
-          "FROM products P, collections CL, themes T, creators C, ordercartdetails OD " +
-          "WHERE P.idcollection = CL.idcollection " +
-          "AND CL.idtheme = T.idtheme " +
-          "AND T.idcreator = C.idcreator " +
-          "AND P.idproduct = OD.idproduct " +
-          "AND OD.idorder = " +
+      let data = await sequelize.query(
+        "SELECT O.idorder, OD.idorderdetail, P.name AS productname, P.image, OD.quantity, totalprice, " +
+          "C.name AS creatorName, CT.name AS customername, A.name AS agencyname " +
+          "FROM products P " +
+          "JOIN collections CL ON P.idcollection = CL.idcollection " +
+          "JOIN themes T ON CL.idtheme = T.idtheme " +
+          "JOIN creators C ON T.idcreator = C.idcreator " +
+          "JOIN agencies A ON C.idagency = A.idagency " +
+          "JOIN ordercartdetails OD ON P.idproduct = OD.idproduct " +
+          "JOIN ordercarts O ON OD.idorder = O.idorder " +
+          "JOIN customers CT ON O.idcustomer = CT.idcustomer " +
+          "WHERE OD.idorder = " +
           ` :id`,
-        { replacements: { id: id }, type: sequelize.QueryTypes.SELECT }
+        {
+          model: [
+            db.Product,
+            db.Collection,
+            db.Theme,
+            db.Creator,
+            db.OrderCart,
+            db.OrderCartDetail,
+            db.Agency,
+            db.Customer,
+          ],
+          mapToModel: true,
+          replacements: { id: id },
+          type: sequelize.QueryTypes.SELECT,
+        }
       );
       resolve(data);
     } catch (e) {
