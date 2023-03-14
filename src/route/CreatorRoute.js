@@ -7,6 +7,15 @@ route.get(
   "/",
   CreatorController.getAll
 );
+route.get(
+  "/:id",
+  CreatorController.getOne
+);
+
+route.put(
+  "/update/:id",
+  CreatorController.updateStatus
+)
 
 // route.get(
 //   "/name",

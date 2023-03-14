@@ -24,8 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     }, 
     name: DataTypes.STRING,
+    status: DataTypes.BOOLEAN,
+    idagency: DataTypes.STRING,
     email: DataTypes.STRING,
-    status: DataTypes.INTEGER,
     picture: DataTypes.STRING,
   }, {
     sequelize,

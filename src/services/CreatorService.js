@@ -19,6 +19,18 @@ let getAll = (idagency) => {
   });
 };
 
+let getOne = (idcreator) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.Creator.findByPk(idcreator)     
+      Utils.setStatus(data);
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 let searchByName = (name) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -50,8 +62,31 @@ let createCreator = (uid,name, email,idagency,picture) => {
   });
 };
 
+let updateStatus = (id,status) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.Creator.update(
+        {
+          status: status,
+        },
+        {
+          where: {
+            idcreator: id,
+          },
+        }
+      );
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+
 module.exports = {
   getAll: getAll,
+  getOne,
+  updateStatus,
   createCreator: createCreator,
   searchByName: searchByName,
 };
