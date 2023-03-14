@@ -16,6 +16,7 @@ module.exports = {
 
       const uid = data.uid;
       const email = data.email;
+      const picture = data.picture;
       const name = data.name || null;
       const phone = data.phone || null;
 
@@ -25,7 +26,7 @@ module.exports = {
             await AgencyService.createAgency(uid,name, email)
             break
         case "creator":
-            await CreatorService.createCreator(uid,name, email,idagency)
+            await CreatorService.createCreator(uid,name, email,idagency,picture)
             break
         case "customer":
             await CustomerService.createCustomer(uid,name,phone, email,address)

@@ -25,7 +25,7 @@ let searchByName = (name) => {
   });
 };
 
-let createCreator = (uid,name, email,idagency) => {
+let createCreator = (uid,name, email,idagency,picture) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.Creator.create({
@@ -33,6 +33,7 @@ let createCreator = (uid,name, email,idagency) => {
         name: name,
         email: email,
         idagency: idagency,
+        picture: picture,
       });
       resolve(data);
     } catch (e) {
