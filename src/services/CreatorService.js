@@ -1,9 +1,17 @@
 const db = require("../models/index");
+const Utils = require('./Utils');
 
-let getAll = () => {
+let getAll = (idagency) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Creator.findAll();
+      let data = await db.Creator.findAll(
+        {
+          where: {
+            idagency: idagency
+          }
+        }
+      );
+      Utils.setStatus(data);
       resolve(data);
     } catch (e) {
       reject(e);

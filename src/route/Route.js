@@ -3,6 +3,7 @@ const express = require('express');
 let router = express();
 
 const agencyRoute = require('./AgencyRoute');
+const creatorRoute = require('./CreatorRoute');
 const loginRoute = require('./LoginRoute');
 const imageRoute = require('./ImageRoute');
 const productRoute = require('./ProductRoute');
@@ -20,6 +21,7 @@ const checkoutRoute = require('./CheckoutRoute');
 router.use('/signup',signupRoute);
 router.use('/login',loginRoute);
 router.use('/agency',agencyRoute);
+router.use('/creator',creatorRoute);
 router.use('/theme',themeRoute);
 router.use('/collection',collectionRoute);
 router.use('/category',categoryRoute);

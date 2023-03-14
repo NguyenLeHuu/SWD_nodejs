@@ -18,7 +18,11 @@ module.exports = {
       });
     } catch (error) {
       console.log("____Khong lay duoc AgencyList");
-      throw error;
+      return res.status(400).json({
+        status: 400,
+        message: "Get agencies fail!",
+        data: data,
+      });
     }
   },
 
