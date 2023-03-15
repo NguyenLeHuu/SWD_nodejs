@@ -23,6 +23,28 @@ module.exports = {
     }
   },
 
+  async getByCreator(req, res) {
+    /* 
+        #swagger.tags = ['OrderDetail']
+         #swagger.description = "Get order details by order id & id creator"
+        */
+    try {
+      const idcreator = req.params["idcreator"];
+      const idorder = req.params["idorder"];
+
+      let data = await OrderDetailService.getByCreator(idorder, idcreator);
+
+      return res.status(200).json({
+        status: 200,
+        message: "Get detail by order id & creator successful!",
+        data: data,
+      });
+    } catch (error) {
+      console.log("____Cannot get detail by order id & creator id");
+      return res;
+    }
+  },
+
   async store(req, res) {
     /* 
         #swagger.tags = ['OrderDetail']
