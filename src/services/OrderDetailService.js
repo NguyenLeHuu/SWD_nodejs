@@ -8,7 +8,7 @@ let getAll = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await sequelize.query(
-        "SELECT O.idorder, OD.idorderdetail, P.productid, P.name AS productname, P.image, OD.quantity, totalprice, " +
+        "SELECT O.idorder, OD.idorderdetail, P.idproduct, P.name AS productname, P.image, OD.quantity, totalprice, " +
           "C.idcreator, C.name AS creatorName, CT.name AS customername, A.name AS agencyname " +
           "FROM products P " +
           "JOIN collections CL ON P.idcollection = CL.idcollection " +
