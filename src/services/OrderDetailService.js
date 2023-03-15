@@ -60,6 +60,16 @@ let getByCreator = (idorder, idcreator) => {
           `WHERE OD.idorder = :id ` +
           `AND C.idcreator = :idcreator `,
         {
+          model: [
+            db.Product,
+            db.Collection,
+            db.Theme,
+            db.Creator,
+            db.OrderCart,
+            db.OrderCartDetail,
+            db.Agency,
+            db.Customer,
+          ],
           replacements: { id: idorder, idcreator: idcreator },
           type: sequelize.QueryTypes.SELECT,
         }
