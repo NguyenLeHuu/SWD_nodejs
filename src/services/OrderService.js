@@ -53,15 +53,27 @@ let getByCreator = (id) => {
     try {
       let data = await db.sequelize.query(
         "SELECT O.idorder, O.datetime , totalmoney, tracking, O.status, C.idcreator, C.name AS creatorname " +
-          "FROM products P, collections CL, themes T, creators C, ordercarts O, ordercartdetails OD " +
-          "WHERE P.idcollection = CL.idcollection " +
-          "AND CL.idtheme = T.idtheme " +
-          "AND T.idcreator = C.idcreator " +
-          "AND P.idproduct = OD.idproduct " +
-          "AND OD.idorder = O.idorder " +
-          "AND C.idcreator = " +
-          ` :id`,
-        { replacements: { id: id }, type: sequelize.QueryTypes.SELECT }
+          "FROM products P " +
+          "JOIN collections CL ON P.idcollection = CL.idcollection " +
+          "JOIN themes T ON CL.idtheme = T.idtheme " +
+          "JOIN creators C ON T.idcreator = C.idcreator " +
+          "JOIN ordercartdetails OD ON P.idproduct = OD.idproduct " +
+          "JOIN ordercarts O ON OD.idorder = O.idorder " +
+          `WHERE C.idcreator = :id `,
+        {
+          model: [
+            db.Product,
+            db.Collection,
+            db.Theme,
+            db.Creator,
+            db.OrderCart,
+            db.OrderCartDetail,
+            db.Agency,
+            db.Customer,
+          ],
+          replacements: { id: id },
+          type: sequelize.QueryTypes.SELECT,
+        }
       );
       Utils.setStatus(data);
       resolve(data);
