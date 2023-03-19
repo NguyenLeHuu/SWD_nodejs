@@ -75,7 +75,21 @@ let getAll = (data) => {
 let getOne = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Product.findByPk(id);
+      // let data = await db.Product.findByPk(id);
+      let data = await db.Product.findOne({
+        where: {
+          idproduct: id,
+        },
+        include: {
+          model: db.Image,
+          // attributes: [
+          //   "urlImage",
+          // ],
+          group: "idproduct",
+        },
+        raw: false,
+        // nest: true,
+      });
       resolve(data);
     } catch (e) {
       reject(e);
@@ -83,12 +97,12 @@ let getOne = (id) => {
   });
 };
 
-// let createProduct = (data, listImage) => {
-let createProduct = (data, image) => {
-  // console.log(listImage);
+let createProduct = (data, listImage) => {
+  // let createProduct = (data, image) => {
+
   return new Promise(async (resolve, reject) => {
     try {
-      let id = crypto.randomBytes(15).toString("hex");
+      const id = crypto.randomBytes(15).toString("hex");
       const result = await db.Product.create({
         idproduct: id,
         name: data.name,
@@ -96,17 +110,31 @@ let createProduct = (data, image) => {
         price: data.price,
         idproductcategory: data.idproductcategory,
         idcollection: data.idcollection,
-        image: image,
+        image:
+          "https://cdn.shopify.com/s/files/1/0034/8759/6579/files/Black_large_logo.png?height=628&pad_color=fff&v=1614328540&width=1200&fbclid=IwAR2mUhBNanKugkGMIUThYS_9gCYlHaSyayw8Mc6KKKBQKox_CbOQlaoX7BM ",
       });
 
-      // listImage.forEach(async (element) => {
-      //   const idimage = crypto.randomBytes(15).toString("hex");
-      //   await db.Image.create({
-      //     idimage: idimage,
-      //     urlImage: element,
-      //     idproduct: id,
-      //   });
-      // });
+      await db.Product.update(
+        {
+          image: listImage[0]
+        },
+        {
+          where: {
+            idproduct: id,
+          },
+        }
+      );
+
+      listImage.shift();
+
+      listImage.forEach(async (element) => {
+        const idimage = crypto.randomBytes(15).toString("hex");
+        await db.Image.create({
+          idimage: idimage,
+          urlImage: element,
+          idproduct: id,
+        });
+      });
 
       resolve(result);
     } catch (e) {
