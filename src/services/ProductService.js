@@ -75,7 +75,21 @@ let getAll = (data) => {
 let getOne = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Product.findByPk(id);
+      // let data = await db.Product.findByPk(id);
+      let data = await db.Product.findOne({
+        where: {
+          idproduct: id,
+        },
+        include: {
+          model: db.Image,
+          // attributes: [
+          //   "urlImage",
+          // ],
+          group: "idproduct",
+        },
+        raw: false,
+        // nest: true,
+      });
       resolve(data);
     } catch (e) {
       reject(e);
