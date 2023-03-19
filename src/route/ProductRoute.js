@@ -9,8 +9,8 @@ route.get("/", ProductController.index);
 
 route.get("/:id", ProductController.getOne);
 
-// route.post("/create",multer.Multer.array("image"), ProductController.store);
-route.post("/create",multer.Multer.single("image"), ProductController.store);
+route.post("/create",multer.Multer.array("image"), ProductController.store);
+// route.post("/create",multer.Multer.single("image"), ProductController.store);
 
 route.put("/update/:id", ProductController.update);
 

@@ -61,25 +61,25 @@ module.exports = {
         } */
     try {
       const { name, quantity, price, idproductcategory, idcollection } = req.body;
-      // const listImage = [];
-      // req.files.forEach(async file =>  {
-      //   const url = await Firebase.uploadImage(file);
-      //   listImage.push(url);
-      // });
+      const listImage = [];
+      req.files.forEach(async file =>  {
+        const url = await Firebase.uploadImage(file);
+        listImage.push(url);
+      });
 
-      //  await ProductService.createProduct(req.body,listImage);
-      let image ="https://cdn.shopify.com/s/files/1/0034/8759/6579/files/Black_large_logo.png?height=628&pad_color=fff&v=1614328540&width=1200&fbclid=IwAR2mUhBNanKugkGMIUThYS_9gCYlHaSyayw8Mc6KKKBQKox_CbOQlaoX7BM";
-      if (req.file) {
-        image = await Firebase.uploadImage(req.file);
-      }
-      let data =  await ProductService.createProduct(req.body,image);
+       await ProductService.createProduct(req.body,listImage);
+      // let image ="https://cdn.shopify.com/s/files/1/0034/8759/6579/files/Black_large_logo.png?height=628&pad_color=fff&v=1614328540&width=1200&fbclid=IwAR2mUhBNanKugkGMIUThYS_9gCYlHaSyayw8Mc6KKKBQKox_CbOQlaoX7BM";
+      // if (req.file) {
+      //   image = await Firebase.uploadImage(req.file);
+      // }
+      // let data =  await ProductService.createProduct(req.body,image);
 
       console.log("____Create Product Successful");
 
       return res.status(200).json({
         status: 200,
         message: "Create Product Successful!",
-        data: data,
+        // data: data,
       });
     } catch (err) {
       console.log("____Create Product Failed");
