@@ -51,31 +51,51 @@ let getByCustomer = (id) => {
 let getByCreator = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.sequelize.query(
-        "SELECT O.idorder, O.datetime , totalmoney, tracking, O.status, C.idcreator, C.name AS creatorname " +
-          "FROM products P " +
-          "JOIN collections CL ON P.idcollection = CL.idcollection " +
-          "JOIN themes T ON CL.idtheme = T.idtheme " +
-          "JOIN creators C ON T.idcreator = C.idcreator " +
-          "JOIN ordercartdetails OD ON P.idproduct = OD.idproduct " +
-          "JOIN ordercarts O ON OD.idorder = O.idorder " +
-          `WHERE C.idcreator = :id `,
-        {
-          model: [
-            db.Product,
-            db.Collection,
-            db.Theme,
-            db.Creator,
-            db.OrderCart,
-            db.OrderCartDetail,
-            db.Agency,
-            db.Customer,
+      let data = await db.OrderCart.findAll({
+        attributes: [
+          "idorder",
+          "datetime",
+          "status",
+          "tracking",
+          [
+            db.sequelize.fn(
+              "SUM",
+              db.sequelize.col("OrderCartDetails.totalprice")
+            ),
+            "totalmoneyCreator",
           ],
-          replacements: { id: id },
-          type: sequelize.QueryTypes.SELECT,
-        }
-      );
-      Utils.setStatus(data);
+        ],
+
+        include: [
+          {
+            model: db.OrderCartDetail,
+            attributes: [],
+            include: [
+              {
+                model: db.Product,
+                attributes: [],
+                include: [
+                  {
+                    model: db.Collection,
+                    attributes: [],
+                    include: [
+                      {
+                        model: db.Theme,
+                        attributes: [],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        where: { "$OrderCartDetails.Product.Collection.Theme.idcreator$": id },
+        group: ["OrderCart.idorder", "OrderCart.status", "OrderCart.tracking"],
+        raw: false,
+        nest: true,
+      });
+
       resolve(data);
     } catch (e) {
       reject(e);

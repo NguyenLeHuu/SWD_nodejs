@@ -46,34 +46,45 @@ let getAll = (id) => {
 let getByCreator = (idorder, idcreator) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await sequelize.query(
-        "SELECT O.idorder, OD.idorderdetail, P.idproduct, P.name AS productname, P.image, OD.quantity, totalprice, " +
-          "C.idcreator, C.name AS creatorname, CT.name AS customername, A.name AS agencyname, CT.name as customername" +
-          "FROM products P " +
-          "JOIN collections CL ON P.idcollection = CL.idcollection " +
-          "JOIN themes T ON CL.idtheme = T.idtheme " +
-          "JOIN creators C ON T.idcreator = C.idcreator " +
-          "JOIN agencies A ON C.idagency = A.idagency " +
-          "JOIN ordercartdetails OD ON P.idproduct = OD.idproduct " +
-          "JOIN ordercarts O ON OD.idorder = O.idorder " +
-          "JOIN customers CT ON O.idcustomer = CT.idcustomer " +
-          `WHERE OD.idorder = :id ` +
-          `AND C.idcreator = :idcreator `,
-        {
-          model: [
-            db.Product,
-            db.Collection,
-            db.Theme,
-            db.Creator,
-            db.OrderCart,
-            db.OrderCartDetail,
-            db.Agency,
-            db.Customer,
-          ],
-          replacements: { id: idorder, idcreator: idcreator },
-          type: sequelize.QueryTypes.SELECT,
-        }
-      );
+      let data = await db.OrderCart.findOne({
+        attributes: ["idorder", "datetime", "totalmoney", "status", "tracking"],
+
+        include: [
+          {
+            model: db.OrderCartDetail,
+            attributes: ["idorderdetail", "quantity", "totalprice"],
+            include: [
+              {
+                model: db.Product,
+                attributes: ["idproduct", "name", "image"],
+                include: [
+                  {
+                    model: db.Collection,
+                    attributes: [],
+                    include: [
+                      {
+                        model: db.Theme,
+                        attributes: [],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            model: db.Customer,
+            attributes: ["idcustomer", "name", "email"],
+          },
+        ],
+        where: {
+          "$OrderCartDetails.Product.Collection.Theme.idcreator$": idcreator,
+          idorder: idorder,
+        },
+        raw: false,
+        nest: true,
+      });
+
       resolve(data);
     } catch (e) {
       reject(e);
