@@ -7,35 +7,61 @@ let sequelize = db.sequelize;
 let getAll = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await sequelize.query(
-        "SELECT O.idorder, OD.idorderdetail, P.name AS productname, P.image, OD.quantity, totalprice, " +
-          "C.name AS creatorName, CT.name AS customername, A.name AS agencyname " +
-          "FROM products P " +
-          "JOIN collections CL ON P.idcollection = CL.idcollection " +
-          "JOIN themes T ON CL.idtheme = T.idtheme " +
-          "JOIN creators C ON T.idcreator = C.idcreator " +
-          "JOIN agencies A ON C.idagency = A.idagency " +
-          "JOIN ordercartdetails OD ON P.idproduct = OD.idproduct " +
-          "JOIN ordercarts O ON OD.idorder = O.idorder " +
-          "JOIN customers CT ON O.idcustomer = CT.idcustomer " +
-          "WHERE OD.idorder = " +
-          ` :id`,
-        {
-          model: [
-            db.Product,
-            db.Collection,
-            db.Theme,
-            db.Creator,
-            db.OrderCart,
-            db.OrderCartDetail,
-            db.Agency,
-            db.Customer,
+      let data = await db.OrderCart.findOne({
+        attributes: [
+          "idorder",
+          "datetime",
+          "totalmoney",
+          "status",
+          "tracking",
+          [
+            sequelize.col(
+              "OrderCartDetails.Product.Collection.Theme.Creator.name"
+            ),
+            "creatorname",
           ],
-          mapToModel: true,
-          replacements: { id: id },
-          type: sequelize.QueryTypes.SELECT,
-        }
-      );
+        ],
+
+        include: [
+          {
+            model: db.OrderCartDetail,
+            attributes: ["idorderdetail", "quantity", "totalprice"],
+            include: [
+              {
+                model: db.Product,
+                attributes: ["idproduct", "name", "image"],
+                include: [
+                  {
+                    model: db.Collection,
+                    attributes: [],
+                    include: [
+                      {
+                        model: db.Theme,
+                        attributes: [],
+                        include: [
+                          {
+                            model: db.Creator,
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            model: db.Customer,
+            attributes: ["idcustomer", "name", "email"],
+          },
+        ],
+        where: {
+          idorder: id,
+        },
+        raw: false,
+        nest: true,
+      });
+
       resolve(data);
     } catch (e) {
       reject(e);

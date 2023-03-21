@@ -8,11 +8,18 @@ let getByAgency = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.OrderCart.findAll({
+        include: [
+          {
+            model: db.Customer,
+            attributes: ["idcustomer", "name", "email", "address"],
+          },
+        ],
+        raw: false,
+        nest: true,
         where: {
           idagency: id,
         },
       });
-      Utils.setStatus(data);
       resolve(data);
     } catch (e) {
       reject(e);
@@ -88,6 +95,10 @@ let getByCreator = (id) => {
                 ],
               },
             ],
+          },
+          {
+            model: db.Customer,
+            attributes: ["idcustomer", "name", "email"],
           },
         ],
         where: { "$OrderCartDetails.Product.Collection.Theme.idcreator$": id },
