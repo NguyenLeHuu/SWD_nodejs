@@ -75,6 +75,10 @@ let getByCreator = (id) => {
 
         include: [
           {
+            model: db.Customer,
+            attributes: ["idcustomer", "name", "email"],
+          },
+          {
             model: db.OrderCartDetail,
             attributes: [],
             include: [
@@ -95,10 +99,6 @@ let getByCreator = (id) => {
                 ],
               },
             ],
-          },
-          {
-            model: db.Customer,
-            attributes: ["idcustomer", "name", "email"],
           },
         ],
         where: { "$OrderCartDetails.Product.Collection.Theme.idcreator$": id },

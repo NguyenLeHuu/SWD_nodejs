@@ -24,6 +24,10 @@ let getAll = (id) => {
 
         include: [
           {
+            model: db.Customer,
+            attributes: ["idcustomer", "name", "email"],
+          },
+          {
             model: db.OrderCartDetail,
             attributes: ["idorderdetail", "quantity", "totalprice"],
             include: [
@@ -50,10 +54,6 @@ let getAll = (id) => {
               },
             ],
           },
-          {
-            model: db.Customer,
-            attributes: ["idcustomer", "name", "email"],
-          },
         ],
         where: {
           idorder: id,
@@ -73,9 +73,24 @@ let getByCreator = (idorder, idcreator) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.OrderCart.findOne({
-        attributes: ["idorder", "datetime", "totalmoney", "status", "tracking"],
-
+        attributes: [
+          "idorder",
+          "datetime",
+          "status",
+          "tracking",
+          [
+            db.sequelize.fn(
+              "SUM",
+              db.sequelize.col("OrderCartDetails.totalprice")
+            ),
+            "totalmoneyCreator",
+          ],
+        ],
         include: [
+          {
+            model: db.Customer,
+            attributes: ["idcustomer", "name", "email"],
+          },
           {
             model: db.OrderCartDetail,
             attributes: ["idorderdetail", "quantity", "totalprice"],
@@ -98,15 +113,17 @@ let getByCreator = (idorder, idcreator) => {
               },
             ],
           },
-          {
-            model: db.Customer,
-            attributes: ["idcustomer", "name", "email"],
-          },
         ],
         where: {
           "$OrderCartDetails.Product.Collection.Theme.idcreator$": idcreator,
           idorder: idorder,
         },
+        group: [
+          "OrderCart.idorder",
+          "OrderCart.status",
+          "OrderCart.tracking",
+          "OrderCartDetails.idorderdetail",
+        ],
         raw: false,
         nest: true,
       });
