@@ -8,19 +8,7 @@ let getAll = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       let data = await db.OrderCart.findOne({
-        attributes: [
-          "idorder",
-          "datetime",
-          "totalmoney",
-          "status",
-          "tracking",
-          [
-            sequelize.col(
-              "OrderCartDetails.Product.Collection.Theme.Creator.name"
-            ),
-            "creatorname",
-          ],
-        ],
+        attributes: ["idorder", "datetime", "totalmoney", "status", "tracking"],
 
         include: [
           {
@@ -37,14 +25,15 @@ let getAll = (id) => {
                 include: [
                   {
                     model: db.Collection,
-                    attributes: [],
+                    attributes: ["idcollection", "name"],
                     include: [
                       {
                         model: db.Theme,
-                        attributes: [],
+                        attributes: ["idtheme", "name"],
                         include: [
                           {
                             model: db.Creator,
+                            attributes: ["idcreator", "name"],
                           },
                         ],
                       },
