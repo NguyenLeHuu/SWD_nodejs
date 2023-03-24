@@ -42,9 +42,10 @@ module.exports = {
             //chuyen status bang ordercarts
 
             await PayService.updatePayment(idpayment);
-            // await OrderService.updateOrderStatus(idorder)
+            await OrderService.updateOrderStatus(idorder);
             // const orderDetail = await OrderDetailService.getOrderCartDetail(idorder)
             // await OrderDetailService.updateOrderDetail(orderDetail.idorderdetail)
+            await OrderDetailService.updateOrderTracking(idorder, "Completed");
             const tokenDeviceMobile =
               "cg9vLKO8RFaMBsW9LxELkB:APA91bFF0PM8MZOFQ_MQ4tcrEC7c6pNIRQ9s4JM7O388T75wfa5gEHDX8Il9MV7Bw79qh_MrcIJiWZ_grOcXwZ2O14SfRQMyCPDyNllJ_bNOevcig1hdh4ZvgcTBWEIIiaMNX0CQmLV0";
             Firebase.setMsg(tokenDeviceMobile, "Bạn có 1 đơn đặt hàng mới!");
