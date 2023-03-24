@@ -47,7 +47,7 @@ module.exports = {
             // await OrderDetailService.updateOrderDetail(orderDetail.idorderdetail)
             await OrderDetailService.updateOrderTracking(idorder, "Completed");
             const tokenDeviceMobile =
-              "cg9vLKO8RFaMBsW9LxELkB:APA91bFF0PM8MZOFQ_MQ4tcrEC7c6pNIRQ9s4JM7O388T75wfa5gEHDX8Il9MV7Bw79qh_MrcIJiWZ_grOcXwZ2O14SfRQMyCPDyNllJ_bNOevcig1hdh4ZvgcTBWEIIiaMNX0CQmLV0";
+              "emjevywaQ2W8L5wOMVL9bO:APA91bFgJqBvd4QDCF_Ng1h8uw5zhUfFLU3ICA-rKfLiEK9gA2hn3oHjrc4hl58Ttu1C5ChmYC-q2m3amNjAmFoqlhR4d9guCfsncxjRuEw0T3-eeEl44lyuOn0rMn6mWoNbfe8p-05N";
             Firebase.setMsg(tokenDeviceMobile, "Bạn có 1 đơn đặt hàng mới!");
             Firebase.sendNoti();
             res.send("Success (Mua hàng thành công)");
