@@ -45,7 +45,7 @@ module.exports = {
             await OrderService.updateOrderStatus(idorder);
             // const orderDetail = await OrderDetailService.getOrderCartDetail(idorder)
             // await OrderDetailService.updateOrderDetail(orderDetail.idorderdetail)
-            await OrderDetailService.updateOrderTracking(idorder, "Completed");
+            await OrderService.updateOrderTracking(idorder, "Completed");
             const tokenDeviceMobile =
               "emjevywaQ2W8L5wOMVL9bO:APA91bFgJqBvd4QDCF_Ng1h8uw5zhUfFLU3ICA-rKfLiEK9gA2hn3oHjrc4hl58Ttu1C5ChmYC-q2m3amNjAmFoqlhR4d9guCfsncxjRuEw0T3-eeEl44lyuOn0rMn6mWoNbfe8p-05N";
             Firebase.setMsg(tokenDeviceMobile, "Bạn có 1 đơn đặt hàng mới!");
